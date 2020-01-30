@@ -1,0 +1,19 @@
+{
+  "name": "comp397-w2020-lesson1b",
+  "version": "1.0.0",
+  "description": "Comp397 - Lesson 1 Demo",
+  "main": "game.js",
+  "author": "David He",
+  "license": "MIT",
+  "dependencies": {
+    "@types/easeljs": "^1.0.0",
+    "@types/preloadjs": "^0.6.32",
+    "@types/soundjs": "^0.6.27",
+    "@types/tweenjs": "^1.0.0",
+    "createjs": "^1.0.1",
+    "easeljs": "^1.0.2",
+    "preloadjs": "^1.0.1",
+    "soundjs": "^1.0.1",
+    "tweenjs": "^1.0.2"
+  }
+}
