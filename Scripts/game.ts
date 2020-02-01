@@ -2,9 +2,9 @@
 // means = anonymous self-executing function
 (function(){
 
-    let canvas = document.getElementById("canvas");
+    let canvas:HTMLCanvasElement = document.getElementsByTagName("canvas")[0];
     let stage:createjs.Stage;
-    let player1:objects.Character;
+    //let player1:objects.Character;
 
     function Start():void
     {
@@ -16,15 +16,14 @@
 
     function Update():void
     {
-        player1.rotation += 5;
         stage.update();
     }
 
     function Main():void
     {
-        player1 = new objects.Character("./Assets/Images/Char Placeholder/Idle/1.png", 320, 240);
-        player1.regX = player1.getBounds().width*0.5;
-        player1.regY = player1.getBounds().height*0.5;
+        let player1:objects.Character = new objects.Character("./Assets/Images/Char Placeholder/Idle/1.png", 320, 240);
+        //player1.regX = player1.getBounds().width*0.5;
+        //player1.regY = player1.getBounds().height*0.5;
         stage.addChild(player1);
     }
 
