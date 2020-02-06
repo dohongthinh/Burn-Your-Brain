@@ -17,14 +17,39 @@ var objects;
     var classroomItem = /** @class */ (function (_super) {
         __extends(classroomItem, _super);
         //constructor
-        function classroomItem(imagePath, x, y) {
-            var _this = _super.call(this, imagePath) || this;
+        function classroomItem(imagePath, x, y, isCentered) {
+            if (isCentered === void 0) { isCentered = true; }
+            var _this = _super.call(this, imagePath, x, y, isCentered) || this;
             _this.x = x;
             _this.y = y;
             return _this;
         }
+        classroomItem.prototype._checkBounds = function () {
+        };
+        classroomItem.prototype.Start = function () {
+        };
+        classroomItem.prototype.Update = function () {
+            this.Yeet();
+            this._updatePosition();
+        };
+        classroomItem.prototype.Reset = function () {
+        };
+        //methods
+        classroomItem.prototype.PickUp = function (player1) {
+            if (this.isPickedUp) {
+                this.position.x = player1.position.x;
+                this.position.y = player1.position.y - 40;
+            }
+            else {
+            }
+        };
+        classroomItem.prototype.Yeet = function () {
+            if (this.isThrown) {
+                this.position.x -= 10;
+            }
+        };
         return classroomItem;
-    }(createjs.Bitmap));
+    }(objects.GameObject));
     objects.classroomItem = classroomItem;
 })(objects || (objects = {}));
 //# sourceMappingURL=classroomItem.js.map
