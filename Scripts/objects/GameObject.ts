@@ -138,10 +138,29 @@ module objects
 
 
         // PUBLIC METHODS
+        public static CollisionCheck(object: objects.GameObject, object2:objects.GameObject): void
+        {
+            // squared radius check
+    
+            let radii = object.halfHeight + object2.halfHeight;
+
+            if(objects.Vector2.sqrDistance(object.position, object2.position) < (radii * radii))
+            {
+                if(!object2.isColliding)
+                    {
+                        console.log("Collision!");
+                        object2.isColliding = true;
+                    }
+            }
+            else
+            {
+               object2.isColliding = false;
+            }
+        }
 
         public abstract Start():void;
 
-        public abstract Update():void;
+        public abstract Update(...arg: any[]):void;
         
         public abstract Reset():void;
 

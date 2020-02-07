@@ -64,9 +64,6 @@ var objects;
         };
         //could write methods in here for the player in the future
         Character.prototype.Move = function () {
-            // this.x = managers.Game.stage.mouseX;
-            var direction = (this.rotation - 90) * -1;
-            var degToRad = Math.PI / 180.0;
             // standard movement for top scroller - left and right
             if (objects.Input.moveRight) {
                 this.x += 5;
@@ -81,43 +78,28 @@ var objects;
             if (objects.Input.moveBackward) {
                 this.y += 5;
             }
-            /* move in direction that player is facing */
-            /*
-            if(managers.Input.moveForward) {
-                this.x += 5 * Math.cos(direction * (degToRad));
-                this.y -= 5 * Math.sin(direction * degToRad);
+        };
+        Character.prototype.Interact = function (object) {
+            //pick up / put down object
+            if (objects.Input.pickUp) {
+                if (object.isColliding && !object.isPickedUp && !this.isHoldingItem) {
+                    object.isPickedUp = true;
+                    object.isThrown = false;
+                    this.isHoldingItem = true;
+                }
+                else {
+                    object.isPickedUp = false;
+                    this.isHoldingItem = false;
+                }
             }
-
-            if(managers.Input.moveBackward) {
-                this.x -= 5 * Math.cos(direction * (degToRad));
-                this.y += 5 * Math.sin(direction * degToRad);
+            //uh
+            if (objects.Input.yeet) {
+                if (object.isPickedUp) {
+                    object.isThrown = true;
+                    object.isPickedUp = false;
+                    this.isHoldingItem = false;
+                }
             }
-
-            if(managers.Input.moveLeft) {
-                this.rotation -= 5;
-            }
-
-            if(managers.Input.moveRight) {
-                this.rotation += 5;
-            }
-            */
-            /* gamepad controls
-            if(managers.Input.gamepad1.Axis[config.Gamepad.HORIZONTAL] > 0) {
-                this.x += 10;
-            }
-
-            if(managers.Input.gamepad1.Axis[config.Gamepad.HORIZONTAL] < 0) {
-                this.x -= 10;
-            }
-
-            if(managers.Input.gamepad1.Axis[config.Gamepad.VERTICAL] > 0) {
-                this.y += 5;
-            }
-
-            if(managers.Input.gamepad1.Axis[config.Gamepad.VERTICAL] < 0) {
-                this.y -= 5;
-            }
-            */
         };
         return Character;
     }(objects.GameObject));
