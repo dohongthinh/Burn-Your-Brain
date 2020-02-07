@@ -133,6 +133,20 @@ var objects;
         GameObject.prototype._computeHalfHeight = function () {
             return this.height * 0.5;
         };
+        // PUBLIC METHODS
+        GameObject.CollisionCheck = function (object, object2) {
+            // squared radius check
+            var radii = object.halfHeight + object2.halfHeight;
+            if (objects.Vector2.sqrDistance(object.position, object2.position) < (radii * radii)) {
+                if (!object2.isColliding) {
+                    console.log("Collision!");
+                    object2.isColliding = true;
+                }
+            }
+            else {
+                object2.isColliding = false;
+            }
+        };
         return GameObject;
     }(createjs.Bitmap));
     objects.GameObject = GameObject;
