@@ -17,18 +17,25 @@ module objects{
             this.y = y;
         }
         //methods
-        public PickUp(player1: objects.Character)
+        //pick up / put down object
+        public PickUp(player1: objects.Character, normal:createjs.Bitmap, pickedUp:createjs.Bitmap)
         {
             if(this.isPickedUp)
             {
+                this.image = pickedUp.image;
                 this.position.x = player1.position.x;
                 this.position.y = player1.position.y-40;
             }
             else
             {
                 
+                if(!this.isThrown)
+                {
+                    this.image = normal.image;
+                }
             }
         }
+        //uh
         public Yeet()
         {
             if(this.isThrown)

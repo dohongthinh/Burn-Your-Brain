@@ -37,10 +37,28 @@ var objects;
         Character.prototype._checkBounds = function () {
         };
         Character.prototype.Start = function () {
+            this.regX = this.halfWidth;
+            this.regY = this.halfHeight;
         };
         Character.prototype.Update = function () {
             this.Move();
             this._updatePosition();
+            // checks the right boundary
+            if (this.x > 640 - this.halfWidth) {
+                this.x = 640 - this.halfWidth;
+            }
+            // check the left boundary
+            if (this.x < this.halfWidth) {
+                this.x = this.halfWidth;
+            }
+            // checks the bot boundary
+            if (this.y > 480 - this.halfHeight) {
+                this.y = 480 - this.halfHeight;
+            }
+            // check the top boundary
+            if (this.y < this.halfHeight + 80) {
+                this.y = this.halfHeight + 80;
+            }
         };
         Character.prototype.Reset = function () {
         };

@@ -35,14 +35,20 @@ var objects;
         classroomItem.prototype.Reset = function () {
         };
         //methods
-        classroomItem.prototype.PickUp = function (player1) {
+        //pick up / put down object
+        classroomItem.prototype.PickUp = function (player1, normal, pickedUp) {
             if (this.isPickedUp) {
+                this.image = pickedUp.image;
                 this.position.x = player1.position.x;
                 this.position.y = player1.position.y - 40;
             }
             else {
+                if (!this.isThrown) {
+                    this.image = normal.image;
+                }
             }
         };
+        //uh
         classroomItem.prototype.Yeet = function () {
             if (this.isThrown) {
                 this.position.x -= 10;

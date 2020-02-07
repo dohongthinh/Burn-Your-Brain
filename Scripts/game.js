@@ -24,14 +24,16 @@ var Game = (function () {
         player1.Update();
         CollisionCheck(player1, object);
         CollisionCheck(player1, object2);
-        object2.PickUp(player1);
-        object.PickUp(player1);
+        object2.PickUp(player1, test, test2);
+        object.PickUp(player1, test2, test);
         object2.Update();
         object.Update();
         stage.update();
     }
     function Main() {
         console.log("%c Main Started...", "color: green; font-size: 16px;");
+        test = new createjs.Bitmap("./Assets/Images/Amiya1.png");
+        test2 = new createjs.Bitmap("./Assets/Images/Amiya2.png");
         //objects
         object = new objects.classroomItem("./Assets/Images/Amiya1.png", 420, 240, true);
         stage.addChild(object);
@@ -42,6 +44,7 @@ var Game = (function () {
         stage.addChild(player1);
     }
     function KeyboardInput() {
+        //input for pick up/ put down object (P)
         if (objects.Input.pickUp) {
             if (object.isColliding && object.isPickedUp == false && player1.isHoldingItem == false) {
                 object.isPickedUp = true;
@@ -58,6 +61,7 @@ var Game = (function () {
             }
             objects.Input.pickUp = false;
         }
+        //input for that (Space)
         if (objects.Input.yeet) {
             if (object.isPickedUp) {
                 object.isThrown = true;
@@ -73,6 +77,7 @@ var Game = (function () {
         }
     }
     function CollisionCheck(object, object2) {
+        // squared radius check
         var radii = object.halfHeight + object2.halfHeight;
         if (objects.Vector2.sqrDistance(object.position, object2.position) < (radii * radii)) {
             if (!object2.isColliding) {

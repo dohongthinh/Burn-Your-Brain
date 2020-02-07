@@ -27,8 +27,8 @@ let Game = (function(){
         player1.Update();
         CollisionCheck(player1,object);
         CollisionCheck(player1,object2);
-        object2.PickUp(player1);
-        object.PickUp(player1);
+        object2.PickUp(player1,test,test2);
+        object.PickUp(player1,test2,test);
         object2.Update();
         object.Update();
         stage.update();
@@ -37,7 +37,8 @@ let Game = (function(){
     function Main():void
     {
         console.log(`%c Main Started...`, "color: green; font-size: 16px;");
-
+        test = new createjs.Bitmap("./Assets/Images/Amiya1.png");
+        test2 = new createjs.Bitmap("./Assets/Images/Amiya2.png");
         //objects
         object = new objects.classroomItem("./Assets/Images/Amiya1.png", 420, 240, true);
         stage.addChild(object);
@@ -52,6 +53,7 @@ let Game = (function(){
     }
     
     function KeyboardInput() {
+        //input for pick up/ put down object (P)
         if(objects.Input.pickUp)
         {
             if(object.isColliding && object.isPickedUp == false && player1.isHoldingItem == false)
@@ -72,6 +74,7 @@ let Game = (function(){
             }
             objects.Input.pickUp = false;
         }
+        //input for that (Space)
         if(objects.Input.yeet)
         {
             if(object.isPickedUp)
@@ -90,7 +93,8 @@ let Game = (function(){
         }
      }
     function CollisionCheck(object: objects.GameObject, object2:objects.GameObject): void
-    {        // squared radius check
+    {
+        // squared radius check
     
         let radii = object.halfHeight + object2.halfHeight;
 
