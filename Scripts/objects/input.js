@@ -48,12 +48,6 @@ var objects;
                 case objects.Key.D:
                     this.moveRight = false;
                     break;
-                case objects.Key.SPACEBAR:
-                    this.yeet = false;
-                    break;
-                case objects.Key.P:
-                    this.pickUp = false;
-                    break;
             }
         };
         Input.LeftButtonDown = false;

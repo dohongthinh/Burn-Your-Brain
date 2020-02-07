@@ -67,13 +67,6 @@ module objects {
                 case Key.D:
                     this.moveRight = false;
                 break;
-                case Key.SPACEBAR:
-                    this.yeet = false;
-                break;
-
-                case Key.P:
-                    this.pickUp = false;
-                    break;
             }
         }
     }
