@@ -6,6 +6,6 @@ module objects {
         public static S: number = 83;
         public static SPACEBAR: number = 32;
         public static W: number  = 87;
-        public static P: number = 80;
+        public static E: number = 69;
     }
 }

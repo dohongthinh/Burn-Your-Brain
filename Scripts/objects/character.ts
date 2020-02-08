@@ -11,14 +11,6 @@ module objects{
             this._isHoldingItem = newState;
         }
         protected _checkBounds(): void {
-        }
-        public Start(): void {
-            this.regX = this.halfWidth;
-            this.regY = this.halfHeight;
-        }
-        public Update(): void {
-            this.Move();
-            this._updatePosition();
             // checks the right boundary
             if(this.x > 640 - this.halfWidth) {
                 this.x = 640 - this.halfWidth;
@@ -37,6 +29,15 @@ module objects{
             if(this.y < this.halfHeight + 80) {
                 this.y = this.halfHeight + 80;
             }
+        }
+        public Start(): void {
+            this.regX = this.halfWidth;
+            this.regY = this.halfHeight;
+        }
+        public Update(): void {
+            this._checkBounds();
+            this.Move();
+            this._updatePosition();
         }
         public Reset(): void {
         }
@@ -90,6 +91,7 @@ module objects{
             {
                 if(object.isPickedUp)
                 {
+                    object.dir = this.dir;
                     object.isThrown = true;
                     object.isPickedUp = false;
                     this.isHoldingItem = false;

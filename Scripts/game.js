@@ -21,6 +21,13 @@ var Game = (function () {
         objects.Input.Start();
     }
     function Update() {
+        //Rotate player towards mouse position
+        player1.dir = Math.atan2(stage.mouseY - player1.y, stage.mouseX - player1.x);
+        player1.angle = player1.dir * (180 / Math.PI);
+        if (player1.angle < 0) {
+            player1.angle = 360 - (-player1.angle);
+        }
+        player1.rotation = 90 + player1.angle;
         player1.Update();
         testObject.Update(player1);
         testObject2.Update(player1);

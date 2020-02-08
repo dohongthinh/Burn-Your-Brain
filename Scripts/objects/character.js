@@ -35,14 +35,6 @@ var objects;
             configurable: true
         });
         Character.prototype._checkBounds = function () {
-        };
-        Character.prototype.Start = function () {
-            this.regX = this.halfWidth;
-            this.regY = this.halfHeight;
-        };
-        Character.prototype.Update = function () {
-            this.Move();
-            this._updatePosition();
             // checks the right boundary
             if (this.x > 640 - this.halfWidth) {
                 this.x = 640 - this.halfWidth;
@@ -59,6 +51,15 @@ var objects;
             if (this.y < this.halfHeight + 80) {
                 this.y = this.halfHeight + 80;
             }
+        };
+        Character.prototype.Start = function () {
+            this.regX = this.halfWidth;
+            this.regY = this.halfHeight;
+        };
+        Character.prototype.Update = function () {
+            this._checkBounds();
+            this.Move();
+            this._updatePosition();
         };
         Character.prototype.Reset = function () {
         };
@@ -95,6 +96,7 @@ var objects;
             //uh
             if (objects.Input.yeet) {
                 if (object.isPickedUp) {
+                    object.dir = this.dir;
                     object.isThrown = true;
                     object.isPickedUp = false;
                     this.isHoldingItem = false;

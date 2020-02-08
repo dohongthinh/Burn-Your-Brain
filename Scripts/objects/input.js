@@ -29,7 +29,7 @@ var objects;
                 case objects.Key.SPACEBAR:
                     this.yeet = true;
                     break;
-                case objects.Key.P:
+                case objects.Key.E:
                     this.pickUp = true;
                     break;
             }
@@ -51,12 +51,11 @@ var objects;
                 case objects.Key.SPACEBAR:
                     this.yeet = false;
                     break;
-                case objects.Key.P:
+                case objects.Key.E:
                     this.pickUp = false;
                     break;
             }
         };
-        Input.LeftButtonDown = false;
         Input.pickUp = false;
         Input.moveBackward = false;
         Input.moveForward = false;

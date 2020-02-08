@@ -28,6 +28,8 @@ var objects;
             _this._height = 0;
             _this._halfWidth = 0;
             _this._halfHeight = 0;
+            _this._angle = 0;
+            _this._dir = 0;
             _this._position = new objects.Vector2(0, 0, _this);
             _this._isColliding = false;
             _this._isPickedUp = false;
@@ -118,6 +120,26 @@ var objects;
             },
             set: function (newState) {
                 this._isThrown = newState;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GameObject.prototype, "angle", {
+            get: function () {
+                return this._angle;
+            },
+            set: function (newAngle) {
+                this._angle = newAngle;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GameObject.prototype, "dir", {
+            get: function () {
+                return this._dir;
+            },
+            set: function (newDir) {
+                this._dir = newDir;
             },
             enumerable: true,
             configurable: true

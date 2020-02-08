@@ -11,6 +11,8 @@ module objects
         private _isColliding:boolean;
         private _isPickedUp:boolean;
         private _isThrown:boolean;
+        private _angle:number;
+        private _dir:number;
         
         // PUBLIC PROPERTIES
         get width():number
@@ -86,6 +88,24 @@ module objects
         {
             this._isThrown = newState;
         }
+        get angle():number
+        {
+            return this._angle;
+        }
+
+        set angle(newAngle:number)
+        {
+            this._angle = newAngle;
+        }
+        get dir():number
+        {
+            return this._dir;
+        }
+
+        set dir(newDir:number)
+        {
+            this._dir = newDir;
+        }
         protected _updatePosition():void {
             this.position.x = this.x;
             this.position.y = this.y;
@@ -102,6 +122,8 @@ module objects
             this._height = 0;
             this._halfWidth = 0;
             this._halfHeight = 0;
+            this._angle = 0;
+            this._dir = 0;
             this._position = new Vector2(0, 0, this);
             this._isColliding = false;
             this._isPickedUp = false;

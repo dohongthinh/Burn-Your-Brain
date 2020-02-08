@@ -1,6 +1,5 @@
 module objects {
     export class Input {
-        public static LeftButtonDown:boolean = false;
         public static pickUp:boolean =false;
         public static moveBackward:boolean = false;
         public static moveForward:boolean = false;
@@ -42,7 +41,7 @@ module objects {
                     this.yeet = true;
                 break;
 
-                case Key.P:
+                case Key.E:
                     this.pickUp = true;
                     break;
 
@@ -71,7 +70,7 @@ module objects {
                     this.yeet = false;
                 break;
 
-                case Key.P:
+                case Key.E:
                     this.pickUp = false;
                     break;
             }
