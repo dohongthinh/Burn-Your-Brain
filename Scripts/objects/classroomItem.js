@@ -22,9 +22,10 @@ var objects;
             var _this = _super.call(this, imagePath, x, y, isCentered) || this;
             _this._dx = 0;
             _this._dy = 0;
-            _this.speed = 3;
+            _this._speed = 2;
             _this.x = x;
             _this.y = y;
+            _this._state = objects.ObjectState.NORMAL;
             _this._normal = normal;
             _this._pickedUp = pickedUp;
             return _this;
@@ -43,62 +44,98 @@ var objects;
             get: function () {
                 return this._dy;
             },
-            set: function (newDx) {
-                this._dy = newDx;
+            set: function (newDy) {
+                this._dy = newDy;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(classroomItem.prototype, "state", {
+            get: function () {
+                return this._state;
+            },
+            set: function (newState) {
+                this._state = newState;
             },
             enumerable: true,
             configurable: true
         });
         classroomItem.prototype._checkBounds = function () {
-            // checks the right boundary
-            if (this.x > 640 - this.halfWidth) {
-                this.x = 640 - this.halfWidth;
-                this.isThrown = false;
-            }
-            // check the left boundary
-            if (this.x < this.halfWidth) {
-                this.x = this.halfWidth;
-                this.isThrown = false;
-            }
-            // checks the bot boundary
-            if (this.y > 480 - this.halfHeight) {
-                this.y = 480 - this.halfHeight;
-                this.isThrown = false;
-            }
-            // check the top boundary
-            if (this.y < this.halfHeight + 80) {
-                this.y = this.halfHeight + 80;
-                this.isThrown = false;
+            if (this.state != objects.ObjectState.PICKED_UP) {
+                // checks the right boundary
+                if (this.x > 640 - this.halfWidth) {
+                    this.x = 640 - this.halfWidth;
+                    this.state = objects.ObjectState.NORMAL;
+                }
+                // check the left boundary
+                if (this.x < this.halfWidth) {
+                    this.x = this.halfWidth;
+                    this.state = objects.ObjectState.NORMAL;
+                }
+                // checks the bot boundary
+                if (this.y > 480 - this.halfHeight) {
+                    this.y = 480 - this.halfHeight;
+                    this.state = objects.ObjectState.NORMAL;
+                }
+                // check the top boundary
+                if (this.y < this.halfHeight + 80) {
+                    this.y = this.halfHeight + 80;
+                    this.state = objects.ObjectState.NORMAL;
+                }
             }
         };
         classroomItem.prototype.Start = function () {
         };
-        classroomItem.prototype.Update = function (player1) {
-            if (this.isPickedUp) {
-                this.image = this._pickedUp.image;
-                this.x = player1.x;
-                this.y = player1.y - 40;
-            }
-            else {
-                if (!this.isThrown) {
+        classroomItem.prototype.Update = function () {
+            switch (this.state) {
+                case objects.ObjectState.NORMAL:
                     this.image = this._normal.image;
-                }
+                    break;
+                case objects.ObjectState.PICKED_UP:
+                    this.image = this._pickedUp.image;
+                    this.x = config.Game.PLAYER.x;
+                    this.y = config.Game.PLAYER.y - 50;
+                    break;
+                case objects.ObjectState.THROWN:
+                    this.dx = Math.cos(this.dir);
+                    this.dy = Math.sin(this.dir);
+                    this.x += this.dx * this._speed;
+                    this.y += this.dy * this._speed;
+                    break;
             }
-            if (this.isThrown) {
-                this.dx = Math.cos(this.dir);
-                this.dy = Math.sin(this.dir);
-                this.x += this.dx * this.speed;
-                this.y += this.dy * this.speed;
-            }
+            this.Interact();
             // ...
             this._checkBounds();
-            objects.GameObject.CollisionCheck(player1, this);
+            managers.Collision.squaredRadiusCheck(config.Game.PLAYER, this);
             this._updatePosition();
         };
         classroomItem.prototype.Reset = function () {
+        };
+        classroomItem.prototype.Interact = function () {
+            //pick up / put down object
+            if (managers.Input.pickUp) {
+                if (this.isColliding && this.state != objects.ObjectState.PICKED_UP && !config.Game.PLAYER.isHoldingItem) {
+                    this.state = objects.ObjectState.PICKED_UP;
+                    config.Game.PLAYER.isHoldingItem = true;
+                    managers.Input.pickUp = false;
+                }
+                else if (this.state == objects.ObjectState.PICKED_UP) {
+                    this.state = objects.ObjectState.NORMAL;
+                    config.Game.PLAYER.isHoldingItem = false;
+                    managers.Input.pickUp = false;
+                }
+            }
+            //uh
+            if (managers.Input.yeet) {
+                if (this.state == objects.ObjectState.PICKED_UP) {
+                    this.dir = config.Game.PLAYER.dir;
+                    this.state = objects.ObjectState.THROWN;
+                    config.Game.PLAYER.isHoldingItem = false;
+                }
+            }
         };
         return classroomItem;
     }(objects.GameObject));
     objects.classroomItem = classroomItem;
 })(objects || (objects = {}));
-//# sourceMappingURL=classroomItem.js.map
+//# sourceMappingURL=classroomitem.js.map

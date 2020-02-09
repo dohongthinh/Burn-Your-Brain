@@ -32,8 +32,6 @@ var objects;
             _this._dir = 0;
             _this._position = new objects.Vector2(0, 0, _this);
             _this._isColliding = false;
-            _this._isPickedUp = false;
-            _this._isThrown = false;
             _this.image.addEventListener("load", function () {
                 _this.width = _this.getBounds().width;
                 _this.height = _this.getBounds().height;
@@ -104,26 +102,6 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(GameObject.prototype, "isPickedUp", {
-            get: function () {
-                return this._isPickedUp;
-            },
-            set: function (newState) {
-                this._isPickedUp = newState;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GameObject.prototype, "isThrown", {
-            get: function () {
-                return this._isThrown;
-            },
-            set: function (newState) {
-                this._isThrown = newState;
-            },
-            enumerable: true,
-            configurable: true
-        });
         Object.defineProperty(GameObject.prototype, "angle", {
             get: function () {
                 return this._angle;
@@ -154,20 +132,6 @@ var objects;
         };
         GameObject.prototype._computeHalfHeight = function () {
             return this.height * 0.5;
-        };
-        // PUBLIC METHODS
-        GameObject.CollisionCheck = function (object, object2) {
-            // squared radius check
-            var radii = object.halfHeight + object2.halfHeight;
-            if (objects.Vector2.sqrDistance(object.position, object2.position) < (radii * radii)) {
-                if (!object2.isColliding) {
-                    console.log("Collision!");
-                    object2.isColliding = true;
-                }
-            }
-            else {
-                object2.isColliding = false;
-            }
         };
         return GameObject;
     }(createjs.Bitmap));

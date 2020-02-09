@@ -195,7 +195,11 @@ module objects
             return (diffXs * diffXs) + (diffYs * diffYs);
         }
 
-
-        
+        public static subtract(lhs:Vector2, rhs:Vector2):Vector2
+        {
+            let dx = lhs.x - rhs.x
+            let dy = lhs.y - rhs.y;
+            return new Vector2(dx,dy);
+        }
     }
 }

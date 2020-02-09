@@ -9,8 +9,6 @@ module objects
         private _halfHeight:number;
         private _position:Vector2;
         private _isColliding:boolean;
-        private _isPickedUp:boolean;
-        private _isThrown:boolean;
         private _angle:number;
         private _dir:number;
         
@@ -68,26 +66,6 @@ module objects
         {
             this._isColliding = newState;
         }
-
-        get isPickedUp():boolean
-        {
-            return this._isPickedUp;
-        }
-
-        set isPickedUp(newState:boolean)
-        {
-            this._isPickedUp = newState;
-        }
-
-        get isThrown():boolean
-        {
-            return this._isThrown;
-        }
-
-        set isThrown(newState:boolean)
-        {
-            this._isThrown = newState;
-        }
         get angle():number
         {
             return this._angle;
@@ -126,8 +104,6 @@ module objects
             this._dir = 0;
             this._position = new Vector2(0, 0, this);
             this._isColliding = false;
-            this._isPickedUp = false;
-            this._isThrown = false;
 
             this.image.addEventListener("load", () => {
 
@@ -160,29 +136,10 @@ module objects
 
 
         // PUBLIC METHODS
-        public static CollisionCheck(object: objects.GameObject, object2:objects.GameObject): void
-        {
-            // squared radius check
-    
-            let radii = object.halfHeight + object2.halfHeight;
-
-            if(objects.Vector2.sqrDistance(object.position, object2.position) < (radii * radii))
-            {
-                if(!object2.isColliding)
-                    {
-                        console.log("Collision!");
-                        object2.isColliding = true;
-                    }
-            }
-            else
-            {
-               object2.isColliding = false;
-            }
-        }
 
         public abstract Start():void;
 
-        public abstract Update(...arg: any[]):void;
+        public abstract Update():void;
         
         public abstract Reset():void;
 

@@ -1,6 +1,6 @@
 "use strict";
-var objects;
-(function (objects) {
+var managers;
+(function (managers) {
     var Input = /** @class */ (function () {
         function Input() {
         }
@@ -14,45 +14,51 @@ var objects;
         };
         Input.onKeyDown = function (event) {
             switch (event.keyCode) {
-                case objects.Key.W:
+                case managers.Key.W:
                     this.moveForward = true;
                     break;
-                case objects.Key.A:
+                case managers.Key.A:
                     this.moveLeft = true;
                     break;
-                case objects.Key.S:
+                case managers.Key.S:
                     this.moveBackward = true;
                     break;
-                case objects.Key.D:
+                case managers.Key.D:
                     this.moveRight = true;
                     break;
-                case objects.Key.SPACEBAR:
+                case managers.Key.SPACEBAR:
                     this.yeet = true;
                     break;
-                case objects.Key.E:
+                case managers.Key.E:
                     this.pickUp = true;
+                    break;
+                case managers.Key.F:
+                    this.something = true;
                     break;
             }
         };
         Input.onKeyUp = function (event) {
             switch (event.keyCode) {
-                case objects.Key.W:
+                case managers.Key.W:
                     this.moveForward = false;
                     break;
-                case objects.Key.A:
+                case managers.Key.A:
                     this.moveLeft = false;
                     break;
-                case objects.Key.S:
+                case managers.Key.S:
                     this.moveBackward = false;
                     break;
-                case objects.Key.D:
+                case managers.Key.D:
                     this.moveRight = false;
                     break;
-                case objects.Key.SPACEBAR:
+                case managers.Key.SPACEBAR:
                     this.yeet = false;
                     break;
-                case objects.Key.E:
+                case managers.Key.E:
                     this.pickUp = false;
+                    break;
+                case managers.Key.F:
+                    this.something = false;
                     break;
             }
         };
@@ -62,8 +68,9 @@ var objects;
         Input.moveLeft = false;
         Input.moveRight = false;
         Input.yeet = false;
+        Input.something = false;
         return Input;
     }());
-    objects.Input = Input;
-})(objects || (objects = {}));
+    managers.Input = Input;
+})(managers || (managers = {}));
 //# sourceMappingURL=input.js.map

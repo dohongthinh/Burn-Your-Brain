@@ -1,6 +1,6 @@
 "use strict";
-var objects;
-(function (objects) {
+var managers;
+(function (managers) {
     var Key = /** @class */ (function () {
         function Key() {
         }
@@ -11,8 +11,9 @@ var objects;
         Key.SPACEBAR = 32;
         Key.W = 87;
         Key.E = 69;
+        Key.F = 70;
         return Key;
     }());
-    objects.Key = Key;
-})(objects || (objects = {}));
+    managers.Key = Key;
+})(managers || (managers = {}));
 //# sourceMappingURL=keys.js.map

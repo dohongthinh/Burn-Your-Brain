@@ -1,4 +1,4 @@
-module objects {
+module managers {
     export class Input {
         public static pickUp:boolean =false;
         public static moveBackward:boolean = false;
@@ -6,6 +6,7 @@ module objects {
         public static moveLeft: boolean = false;
         public static moveRight: boolean = false;
         public static yeet: boolean = false;
+        public static something: boolean = false;
 
         public static Start() {
             document.addEventListener('keydown', this.onKeyDown.bind(this), false);
@@ -42,7 +43,11 @@ module objects {
                 break;
 
                 case Key.E:
-                    this.pickUp = true;
+                    this.pickUp=true;
+                    break;
+
+                case Key.F:
+                    this.something = true;
                     break;
 
             }
@@ -72,6 +77,10 @@ module objects {
 
                 case Key.E:
                     this.pickUp = false;
+                    break;
+
+                case Key.F:
+                    this.something = false;
                     break;
             }
         }

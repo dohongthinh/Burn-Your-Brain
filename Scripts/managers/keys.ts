@@ -1,4 +1,4 @@
-module objects {
+module managers {
     export class Key {
         // Keyboard Values
         public static A: number = 65;
@@ -7,5 +7,6 @@ module objects {
         public static SPACEBAR: number = 32;
         public static W: number  = 87;
         public static E: number = 69;
+        public static F: number = 70;
     }
 }

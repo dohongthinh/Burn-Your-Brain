@@ -57,6 +57,7 @@ var objects;
             this.regY = this.halfHeight;
         };
         Character.prototype.Update = function () {
+            this.Rotate();
             this._checkBounds();
             this.Move();
             this._updatePosition();
@@ -66,42 +67,28 @@ var objects;
         //could write methods in here for the player in the future
         Character.prototype.Move = function () {
             // standard movement for top scroller - left and right
-            if (objects.Input.moveRight) {
+            if (managers.Input.moveRight) {
                 this.x += 5;
             }
-            if (objects.Input.moveLeft) {
+            if (managers.Input.moveLeft) {
                 this.x -= 5;
             }
             // standard movement - forward - back
-            if (objects.Input.moveForward) {
+            if (managers.Input.moveForward) {
                 this.y -= 5;
             }
-            if (objects.Input.moveBackward) {
+            if (managers.Input.moveBackward) {
                 this.y += 5;
             }
         };
-        Character.prototype.Interact = function (object) {
-            //pick up / put down object
-            if (objects.Input.pickUp) {
-                if (object.isColliding && !object.isPickedUp && !this.isHoldingItem) {
-                    object.isPickedUp = true;
-                    object.isThrown = false;
-                    this.isHoldingItem = true;
-                }
-                else {
-                    object.isPickedUp = false;
-                    this.isHoldingItem = false;
-                }
+        //Rotate player towards mouse position
+        Character.prototype.Rotate = function () {
+            this.dir = Math.atan2(config.Game.STAGE.mouseY - this.y, config.Game.STAGE.mouseX - this.x);
+            this.angle = this.dir * (180 / Math.PI);
+            if (this.angle < 0) {
+                this.angle = 360 + this.angle;
             }
-            //uh
-            if (objects.Input.yeet) {
-                if (object.isPickedUp) {
-                    object.dir = this.dir;
-                    object.isThrown = true;
-                    object.isPickedUp = false;
-                    this.isHoldingItem = false;
-                }
-            }
+            this.rotation = 90 + this.angle;
         };
         return Character;
     }(objects.GameObject));

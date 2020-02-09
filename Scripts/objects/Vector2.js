@@ -146,6 +146,11 @@ var objects;
             var diffYs = P2.y - P1.y;
             return (diffXs * diffXs) + (diffYs * diffYs);
         };
+        Vector2.subtract = function (lhs, rhs) {
+            var dx = lhs.x - rhs.x;
+            var dy = lhs.y - rhs.y;
+            return new Vector2(dx, dy);
+        };
         return Vector2;
     }());
     objects.Vector2 = Vector2;

@@ -35,6 +35,7 @@ module objects{
             this.regY = this.halfHeight;
         }
         public Update(): void {
+            this.Rotate();
             this._checkBounds();
             this.Move();
             this._updatePosition();
@@ -51,52 +52,33 @@ module objects{
         public Move():void {
             // standard movement for top scroller - left and right
             
-            if(Input.moveRight) {
+            if(managers.Input.moveRight) {
                 this.x += 5;
             }
 
-            if(Input.moveLeft) {
+            if(managers.Input.moveLeft) {
                 this.x -= 5;
             }
             
             // standard movement - forward - back
-            if(Input.moveForward) {
+            if(managers.Input.moveForward) {
                 this.y -= 5;
             }
 
-            if(Input.moveBackward) {
+            if(managers.Input.moveBackward) {
                 this.y += 5;
             }
         }
-        
-        public Interact(object: objects.classroomItem)
+        //Rotate player towards mouse position
+        public Rotate()
         {
-            //pick up / put down object
-            if(Input.pickUp)
+            this.dir = Math.atan2(config.Game.STAGE.mouseY - this.y, config.Game.STAGE.mouseX - this.x);
+            this.angle = this.dir * (180/Math.PI);
+            if(this.angle < 0)
             {
-                if(object.isColliding && !object.isPickedUp && !this.isHoldingItem)
-                {
-                    object.isPickedUp = true;
-                    object.isThrown = false;
-                    this.isHoldingItem = true;
-                }
-                else
-                {
-                    object.isPickedUp = false;
-                    this.isHoldingItem = false;
-                }
+                this.angle = 360 +this.angle;
             }
-            //uh
-            if(Input.yeet)
-            {
-                if(object.isPickedUp)
-                {
-                    object.dir = this.dir;
-                    object.isThrown = true;
-                    object.isPickedUp = false;
-                    this.isHoldingItem = false;
-                }
-            }
+            this.rotation = 90+ this.angle;
         }
     }
 }

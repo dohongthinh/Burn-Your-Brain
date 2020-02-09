@@ -4,7 +4,8 @@ module objects{
         private _pickedUp:createjs.Bitmap;
         private _dx:number = 0;
         private _dy:number = 0;
-        private speed:number = 3;
+        private _speed:number = 2;
+        private _state:ObjectState;
 
         get dx()
         {
@@ -18,61 +19,73 @@ module objects{
         {
             return this._dy;
         }
-        set dy(newDx:number)
+        set dy(newDy:number)
         {
-            this._dy = newDx;
+            this._dy = newDy;
         }
-        
+
+        get state()
+        {
+            return this._state;
+        }
+        set state(newState:ObjectState)
+        {
+            this._state = newState;
+        }
+
         protected _checkBounds(): void {
-            // checks the right boundary
-            if(this.x > 640 - this.halfWidth) {
-                this.x = 640 - this.halfWidth;
-                this.isThrown = false;
-            }
-
-            // check the left boundary
-            if(this.x < this.halfWidth) {
-                this.x = this.halfWidth;
-                this.isThrown = false;
-            }
-            // checks the bot boundary
-            if(this.y > 480 - this.halfHeight) {
-                this.y = 480 - this.halfHeight;
-                this.isThrown = false;
-            }
-
-            // check the top boundary
-            if(this.y < this.halfHeight + 80) {
-                this.y = this.halfHeight + 80;
-                this.isThrown = false;
+            if(this.state != ObjectState.PICKED_UP)
+            {
+                // checks the right boundary
+                if(this.x > 640 - this.halfWidth) {
+                    this.x = 640 - this.halfWidth;
+                    this.state = ObjectState.NORMAL;
+                }
+    
+                // check the left boundary
+                if(this.x < this.halfWidth) {
+                    this.x = this.halfWidth;
+                    this.state = ObjectState.NORMAL;
+                }
+                // checks the bot boundary
+                if(this.y > 480 - this.halfHeight) {
+                    this.y = 480 - this.halfHeight;
+                    this.state = ObjectState.NORMAL;
+                }
+    
+                // check the top boundary
+                if(this.y < this.halfHeight + 80) {
+                    this.y = this.halfHeight + 80;
+                    this.state = ObjectState.NORMAL;
+                }
             }
         }
         public Start(): void {
         }
-        public Update(player1: objects.Character): void {
-            if(this.isPickedUp)
+        public Update(): void {
+            switch(this.state)
             {
-                this.image = this._pickedUp.image;
-                this.x = player1.x;
-                this.y = player1.y-40;
-            }
-            else
-            {
-                if(!this.isThrown)
-                {
+                case ObjectState.NORMAL:
                     this.image = this._normal.image;
-                }
+                    break;
+
+                case ObjectState.PICKED_UP:
+                    this.image = this._pickedUp.image;
+                    this.x = config.Game.PLAYER.x;
+                    this.y = config.Game.PLAYER.y-50;
+                    break;
+
+                case ObjectState.THROWN:
+                    this.dx = Math.cos(this.dir);
+                    this.dy = Math.sin(this.dir);
+                    this.x += this.dx * this._speed;
+                    this.y += this.dy * this._speed;
+                    break;
             }
-            if(this.isThrown)
-            {
-                this.dx = Math.cos(this.dir);
-                this.dy = Math.sin(this.dir);
-                this.x += this.dx * this.speed;
-                this.y += this.dy * this.speed;
-            }
+            this.Interact();
             // ...
             this._checkBounds();
-            GameObject.CollisionCheck(player1,this);
+            managers.Collision.squaredRadiusCheck(config.Game.PLAYER, this);
             this._updatePosition();
         }
         public Reset(): void {
@@ -82,9 +95,38 @@ module objects{
             super(imagePath,x,y,isCentered);
             this.x = x;
             this.y = y;
+            this._state = ObjectState.NORMAL;
             this._normal = normal;
             this._pickedUp = pickedUp;
         }
-        //methods
+        public Interact(): void
+        {
+            //pick up / put down object
+            if(managers.Input.pickUp)
+            {
+                if(this.isColliding && this.state != ObjectState.PICKED_UP && !config.Game.PLAYER.isHoldingItem)
+                {
+                    this.state = ObjectState.PICKED_UP;
+                    config.Game.PLAYER.isHoldingItem = true;
+                    managers.Input.pickUp = false;
+                }   
+                else if (this.state == ObjectState.PICKED_UP)
+                {
+                    this.state = ObjectState.NORMAL;
+                    config.Game.PLAYER.isHoldingItem = false;
+                    managers.Input.pickUp = false;
+                }
+            }
+            //uh
+            if(managers.Input.yeet)
+            {
+                if(this.state == ObjectState.PICKED_UP)
+                {
+                    this.dir = config.Game.PLAYER.dir;
+                    this.state = ObjectState.THROWN;
+                    config.Game.PLAYER.isHoldingItem = false;
+                }
+            }
+        }
     }
 }
