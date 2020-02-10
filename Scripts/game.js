@@ -34,7 +34,7 @@ var Game = (function () {
         stage.update();
     }
     function Main() {
-        console.log("%c Main Started...", "color: green; font-size: 16px;");
+        console.log("%cMovement: WASD, Pick Up/ Put Down: E, ...: Spacebar ", "color: blue; font-size: 18px;");
         //objects
         stage.addChild(testObject);
         stage.addChild(testObject2);
