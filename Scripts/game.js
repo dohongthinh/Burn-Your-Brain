@@ -10,6 +10,7 @@ var Game = (function () {
     var test;
     var test2;
     var timer;
+    var timerLabel;
     function Start() {
         test = new createjs.Bitmap("./Assets/Images/Amiya1.png");
         test2 = new createjs.Bitmap("./Assets/Images/Amiya2.png");
@@ -43,10 +44,14 @@ var Game = (function () {
         stage.addChild(player1);
         //start timer
         timer = new objects.timer(10); //time in seconds
+        timerLabel = new objects.Label("Time left: ", "20px", "Aerial", "#000000", 5, 0, false);
+        stage.addChild(timerLabel);
         var count;
         var interval = window.setInterval(function () {
             count = timer.Update();
+            timerLabel.text = ("Time left: " + timer.getMinutes + "m " + timer.getSeconds + "s");
             if (count < 1) { // timer ends, do something here (e.g. next scene.)
+                //TODO: next scene (gameover)
                 window.clearInterval(interval);
             }
         }, 1000);

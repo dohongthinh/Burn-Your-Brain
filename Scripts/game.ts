@@ -10,6 +10,7 @@ let Game = (function(){
     let test:createjs.Bitmap;
     let test2:createjs.Bitmap;
     let timer:objects.timer;
+    let timerLabel: objects.Label;
 
     function Start():void
     {
@@ -53,11 +54,15 @@ let Game = (function(){
 
         //start timer
         timer = new objects.timer(10); //time in seconds
+        timerLabel = new objects.Label("Time left: ", "20px", "Aerial", "#000000", 5 , 0, false);
+        stage.addChild(timerLabel);
         let count:number;
         let interval = window.setInterval( function() {
             count = timer.Update();
+            timerLabel.text = ("Time left: " + timer.getMinutes+ "m " + timer.getSeconds + "s");
             if(count <1)
             {// timer ends, do something here (e.g. next scene.)
+                //TODO: next scene (gameover)
                 window.clearInterval(interval);
             }
         }, 1000);

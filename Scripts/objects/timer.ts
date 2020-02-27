@@ -5,11 +5,10 @@ module objects {
         now = new Date().getTime();
         timeLeft = new Date().getTime();
         targetTime = new Date().getTime();
-        minutes = Math.floor((this.timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        seconds = Math.floor((this.timeLeft % (1000 * 60)) / 1000);
+        minutes : number = 0;
+        seconds : number = 0;
 
         constructor(time:number){
-
             this.now = new Date().getTime(); // returns number of miliseconds since Jan 1, 1970
             this.timeLeft = new Date().getTime(); 
             this.targetTime = this.now + (time*1000); // .getTime works in milliseconds so time will be converted to milliseconds
@@ -28,6 +27,14 @@ module objects {
             //console.log(this.now);
 
             return this.timeLeft;
+        }
+        
+        get getMinutes():number{
+            return this.minutes;
+        }
+
+        get getSeconds():number{
+            return this.seconds;
         }
     }
 }

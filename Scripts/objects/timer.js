@@ -7,8 +7,8 @@ var objects;
             this.now = new Date().getTime();
             this.timeLeft = new Date().getTime();
             this.targetTime = new Date().getTime();
-            this.minutes = Math.floor((this.timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            this.seconds = Math.floor((this.timeLeft % (1000 * 60)) / 1000);
+            this.minutes = 0;
+            this.seconds = 0;
             this.now = new Date().getTime(); // returns number of miliseconds since Jan 1, 1970
             this.timeLeft = new Date().getTime();
             this.targetTime = this.now + (time * 1000); // .getTime works in milliseconds so time will be converted to milliseconds
@@ -23,6 +23,20 @@ var objects;
             //console.log(this.now);
             return this.timeLeft;
         };
+        Object.defineProperty(timer.prototype, "getMinutes", {
+            get: function () {
+                return this.minutes;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(timer.prototype, "getSeconds", {
+            get: function () {
+                return this.seconds;
+            },
+            enumerable: true,
+            configurable: true
+        });
         return timer;
     }());
     objects.timer = timer;
