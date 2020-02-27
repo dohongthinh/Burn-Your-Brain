@@ -9,6 +9,7 @@ let Game = (function(){
     let testObject2:objects.classroomItem;
     let test:createjs.Bitmap;
     let test2:createjs.Bitmap;
+    let timer:objects.timer;
 
     function Start():void
     {
@@ -42,13 +43,24 @@ let Game = (function(){
     function Main():void
     {
         console.log(`%cMovement: WASD, Pick Up/ Put Down: E, ...: Spacebar `, "color: blue; font-size: 18px;");
-
+        
         //objects
         stage.addChild(testObject);
         stage.addChild(testObject2);
 
         //player
         stage.addChild(player1);
+
+        //start timer
+        timer = new objects.timer(10); //time in seconds
+        let count:number;
+        let interval = window.setInterval( function() {
+            count = timer.Update();
+            if(count <1)
+            {// timer ends, do something here (e.g. next scene.)
+                window.clearInterval(interval);
+            }
+        }, 1000);
     }
     window.addEventListener('load', Start);
 

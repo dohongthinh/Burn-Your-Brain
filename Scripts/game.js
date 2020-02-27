@@ -9,6 +9,7 @@ var Game = (function () {
     var testObject2;
     var test;
     var test2;
+    var timer;
     function Start() {
         test = new createjs.Bitmap("./Assets/Images/Amiya1.png");
         test2 = new createjs.Bitmap("./Assets/Images/Amiya2.png");
@@ -40,6 +41,15 @@ var Game = (function () {
         stage.addChild(testObject2);
         //player
         stage.addChild(player1);
+        //start timer
+        timer = new objects.timer(10); //time in seconds
+        var count;
+        var interval = window.setInterval(function () {
+            count = timer.Update();
+            if (count < 1) { // timer ends, do something here (e.g. next scene.)
+                window.clearInterval(interval);
+            }
+        }, 1000);
     }
     window.addEventListener('load', Start);
 })();
