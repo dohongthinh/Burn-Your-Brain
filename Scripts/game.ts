@@ -9,6 +9,7 @@ let Game = (function(){
     let testObject2:objects.classroomItem;
     let test:createjs.Bitmap;
     let test2:createjs.Bitmap;
+    let table:objects.Table;
 
     function Start():void
     {
@@ -17,6 +18,7 @@ let Game = (function(){
         testObject = new objects.classroomItem("./Assets/Images/Amiya1.png", 420, 240, true, test, test2);
         testObject2 = new objects.classroomItem("./Assets/Images/Amiya2.png", 120, 140, true, test2, test);
         player1 = new objects.Character("./Assets/Images/Char Placeholder/Idle/1.png", 320, 240, true);
+        table = new objects.Table("./Assets/Images/Small_square_table.png",100,100,true);
         config.Game.PLAYER = player1;
         stage = new createjs.Stage(canvas);
         
@@ -49,6 +51,9 @@ let Game = (function(){
 
         //player
         stage.addChild(player1);
+
+        //table
+        stage.addChild(table);
     }
     window.addEventListener('load', Start);
 

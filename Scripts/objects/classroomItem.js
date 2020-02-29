@@ -138,4 +138,4 @@ var objects;
     }(objects.GameObject));
     objects.classroomItem = classroomItem;
 })(objects || (objects = {}));
-//# sourceMappingURL=classroomitem.js.map
+//# sourceMappingURL=classroomItem.js.map
