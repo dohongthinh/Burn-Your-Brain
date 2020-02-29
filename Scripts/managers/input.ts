@@ -1,8 +1,8 @@
 module managers {
     export class Input {
         public static pickUp:boolean =false;
-        public static moveBackward:boolean = false;
-        public static moveForward:boolean = false;
+        public static moveDown:boolean = false;
+        public static moveUp:boolean = false;
         public static moveLeft: boolean = false;
         public static moveRight: boolean = false;
         public static yeet: boolean = false;
@@ -23,7 +23,7 @@ module managers {
         public static onKeyDown(event: KeyboardEvent):void {
             switch(event.keyCode) {
                 case Key.W:
-                    this.moveForward = true;
+                    this.moveUp = true;
                 break;
 
                 case Key.A:
@@ -31,7 +31,7 @@ module managers {
                 break;
 
                 case Key.S:
-                    this.moveBackward = true;
+                    this.moveDown = true;
                 break;
 
                 case Key.D:
@@ -57,7 +57,7 @@ module managers {
         public static onKeyUp(event: KeyboardEvent):void {
             switch(event.keyCode) {
                 case Key.W:
-                    this.moveForward = false;
+                    this.moveUp = false;
                 break;
 
                 case Key.A:
@@ -65,7 +65,7 @@ module managers {
                 break;
 
                 case Key.S:
-                    this.moveBackward = false;
+                    this.moveDown = false;
                 break;
 
                 case Key.D:

@@ -15,13 +15,13 @@ var managers;
         Input.onKeyDown = function (event) {
             switch (event.keyCode) {
                 case managers.Key.W:
-                    this.moveForward = true;
+                    this.moveUp = true;
                     break;
                 case managers.Key.A:
                     this.moveLeft = true;
                     break;
                 case managers.Key.S:
-                    this.moveBackward = true;
+                    this.moveDown = true;
                     break;
                 case managers.Key.D:
                     this.moveRight = true;
@@ -40,13 +40,13 @@ var managers;
         Input.onKeyUp = function (event) {
             switch (event.keyCode) {
                 case managers.Key.W:
-                    this.moveForward = false;
+                    this.moveUp = false;
                     break;
                 case managers.Key.A:
                     this.moveLeft = false;
                     break;
                 case managers.Key.S:
-                    this.moveBackward = false;
+                    this.moveDown = false;
                     break;
                 case managers.Key.D:
                     this.moveRight = false;
@@ -63,8 +63,8 @@ var managers;
             }
         };
         Input.pickUp = false;
-        Input.moveBackward = false;
-        Input.moveForward = false;
+        Input.moveDown = false;
+        Input.moveUp = false;
         Input.moveLeft = false;
         Input.moveRight = false;
         Input.yeet = false;

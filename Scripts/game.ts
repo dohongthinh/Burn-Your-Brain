@@ -10,6 +10,8 @@ let Game = (function(){
     let test:createjs.Bitmap;
     let test2:createjs.Bitmap;
     let table:objects.Table;
+    let timer:objects.timer;
+    let timerLabel: objects.Label;
 
     function Start():void
     {
@@ -43,8 +45,8 @@ let Game = (function(){
     
     function Main():void
     {
-        console.log(`%c Main Started...`, "color: green; font-size: 16px;");
-
+        console.log(`%cMovement: WASD, Pick Up/ Put Down: E, ...: Spacebar `, "color: blue; font-size: 18px;");
+        
         //objects
         stage.addChild(testObject);
         stage.addChild(testObject2);
@@ -54,6 +56,20 @@ let Game = (function(){
 
         //table
         stage.addChild(table);
+        //start timer
+        timer = new objects.timer(10); //time in seconds
+        timerLabel = new objects.Label("Time left: ", "20px", "Aerial", "#000000", 5 , 0, false);
+        stage.addChild(timerLabel);
+        let count:number;
+        let interval = window.setInterval( function() {
+            count = timer.Update();
+            timerLabel.text = ("Time left: " + timer.getMinutes+ "m " + timer.getSeconds + "s");
+            if(count <1)
+            {// timer ends, do something here (e.g. next scene.)
+                //TODO: next scene (gameover)
+                window.clearInterval(interval);
+            }
+        }, 1000);
     }
     window.addEventListener('load', Start);
 

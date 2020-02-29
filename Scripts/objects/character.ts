@@ -35,7 +35,8 @@ module objects{
             this.regY = this.halfHeight;
         }
         public Update(): void {
-            this.Rotate();
+            //this.Rotate();
+            this.dir = Math.atan2(config.Game.STAGE.mouseY - this.y, config.Game.STAGE.mouseX - this.x);
             this._checkBounds();
             this.Move();
             this._updatePosition();
@@ -48,10 +49,8 @@ module objects{
             this._isHoldingItem = false;
             this.Start();
         }
-        //could write methods in here for the player in the future
+        //Methods
         public Move():void {
-            // standard movement for top scroller - left and right
-            
             if(managers.Input.moveRight) {
                 this.x += 5;
             }
@@ -59,26 +58,23 @@ module objects{
             if(managers.Input.moveLeft) {
                 this.x -= 5;
             }
-            
-            // standard movement - forward - back
-            if(managers.Input.moveForward) {
+            if(managers.Input.moveUp) {
                 this.y -= 5;
             }
 
-            if(managers.Input.moveBackward) {
+            if(managers.Input.moveDown) {
                 this.y += 5;
             }
         }
         //Rotate player towards mouse position
-        public Rotate()
-        {
-            this.dir = Math.atan2(config.Game.STAGE.mouseY - this.y, config.Game.STAGE.mouseX - this.x);
-            this.angle = this.dir * (180/Math.PI);
-            if(this.angle < 0)
-            {
-                this.angle = 360 +this.angle;
-            }
-            this.rotation = 90+ this.angle;
-        }
+        // public Rotate()
+        // {
+        //     this.angle = this.dir * (180/Math.PI);
+        //     if(this.angle < 0)
+        //     {
+        //         this.angle = 360 +this.angle;
+        //     }
+        //     this.rotation = 90+ this.angle;
+        // }
     }
 }

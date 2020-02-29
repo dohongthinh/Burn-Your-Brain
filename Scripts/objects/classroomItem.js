@@ -93,8 +93,10 @@ var objects;
                     break;
                 case objects.ObjectState.PICKED_UP:
                     this.image = this._pickedUp.image;
-                    this.x = config.Game.PLAYER.x;
-                    this.y = config.Game.PLAYER.y - 50;
+                    this.dx = Math.cos(config.Game.PLAYER.dir);
+                    this.dy = Math.sin(config.Game.PLAYER.dir);
+                    this.x = config.Game.PLAYER.x + this.dx * 40;
+                    this.y = config.Game.PLAYER.y + this.dy * 40;
                     break;
                 case objects.ObjectState.THROWN:
                     this.dx = Math.cos(this.dir);
@@ -104,7 +106,6 @@ var objects;
                     break;
             }
             this.Interact();
-            // ...
             this._checkBounds();
             managers.Collision.squaredRadiusCheck(config.Game.PLAYER, this);
             this._updatePosition();
