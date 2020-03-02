@@ -4,5 +4,6 @@ module config
     {
         public static STAGE: createjs.Stage;
         public static PLAYER: objects.Character;
+        public static SCENE: scenes.State;
     }
 }

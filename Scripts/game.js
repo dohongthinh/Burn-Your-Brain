@@ -4,61 +4,49 @@
 var Game = (function () {
     var canvas = document.getElementsByTagName("canvas")[0];
     var stage;
-    var player1;
-    var testObject;
-    var testObject2;
-    var test;
-    var test2;
-    var table;
-    var timer;
-    var timerLabel;
+    var currentSceneState;
+    var currentScene;
     function Start() {
-        test = new createjs.Bitmap("./Assets/Images/Amiya1.png");
-        test2 = new createjs.Bitmap("./Assets/Images/Amiya2.png");
-        testObject = new objects.classroomItem("./Assets/Images/Amiya1.png", 420, 240, true, test, test2);
-        testObject2 = new objects.classroomItem("./Assets/Images/Amiya2.png", 120, 140, true, test2, test);
-        player1 = new objects.Character("./Assets/Images/Char Placeholder/Idle/1.png", 320, 240, true);
-        table = new objects.Table("./Assets/Images/Small_square_table.png", 100, 100, true);
-        config.Game.PLAYER = player1;
         stage = new createjs.Stage(canvas);
         config.Game.STAGE = stage; // create a reference to the Global Stage
         createjs.Ticker.framerate = 60; //60 FPS
         createjs.Ticker.on("tick", Update);
         stage.enableMouseOver(20);
         SetupInput();
+        currentSceneState = scenes.State.NO_SCENE;
+        config.Game.SCENE = scenes.State.START;
         Main();
     }
     function SetupInput() {
         managers.Input.Start();
     }
     function Update() {
-        player1.Update();
-        testObject.Update();
-        testObject2.Update();
+        if (currentSceneState != config.Game.SCENE) {
+            Main();
+        }
+        currentScene.Update();
         stage.update();
     }
     function Main() {
-        console.log("%cMovement: WASD, Pick Up/ Put Down: E, ...: Spacebar ", "color: blue; font-size: 18px;");
-        //objects
-        stage.addChild(testObject);
-        stage.addChild(testObject2);
-        //player
-        stage.addChild(player1);
-        //table
-        stage.addChild(table);
-        //start timer
-        timer = new objects.timer(10); //time in seconds
-        timerLabel = new objects.Label("Time left: ", "20px", "Aerial", "#000000", 5, 0, false);
-        stage.addChild(timerLabel);
-        var count;
-        var interval = window.setInterval(function () {
-            count = timer.Update();
-            timerLabel.text = ("Time left: " + timer.getMinutes + "m " + timer.getSeconds + "s");
-            if (count < 1) { // timer ends, do something here (e.g. next scene.)
-                //TODO: next scene (gameover)
-                window.clearInterval(interval);
-            }
-        }, 1000);
+        console.log("%c Scene Switched...", "color: green; font-size: 16px;");
+        // clean up
+        if (currentSceneState != scenes.State.NO_SCENE) {
+            currentScene.removeAllChildren();
+            stage.removeAllChildren();
+        }
+        // switch to the new scene
+        switch (config.Game.SCENE) {
+            case scenes.State.START:
+                console.log("switch to Start Scene");
+                currentScene = new scenes.Start();
+                break;
+            case scenes.State.PLAY:
+                console.log("switch to Play Scene");
+                currentScene = new scenes.Play();
+                break;
+        }
+        currentSceneState = config.Game.SCENE;
+        stage.addChild(currentScene);
     }
     window.addEventListener('load', Start);
 })();

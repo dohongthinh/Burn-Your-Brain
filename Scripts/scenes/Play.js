@@ -1,0 +1,73 @@
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var scenes;
+(function (scenes) {
+    var Play = /** @class */ (function (_super) {
+        __extends(Play, _super);
+        // CONSTRUCTOR
+        function Play() {
+            var _this = _super.call(this) || this;
+            _this.Start();
+            return _this;
+        }
+        // PRIVATE METHODS
+        // PUBLIC METHODS
+        Play.prototype.Start = function () {
+            this.test = new createjs.Bitmap("./Assets/Images/Amiya1.png");
+            this.test2 = new createjs.Bitmap("./Assets/Images/Amiya2.png");
+            this.testObject = new objects.classroomItem("./Assets/Images/Amiya1.png", 420, 240, true, this.test, this.test2);
+            this.testObject2 = new objects.classroomItem("./Assets/Images/Amiya2.png", 120, 140, true, this.test2, this.test);
+            this.player1 = new objects.Character("./Assets/Images/Char Placeholder/Idle/1.png", 320, 240, true);
+            this.table = new objects.Table("./Assets/Images/Small_square_table.png", 100, 100, true);
+            //start timer
+            this.timer = new objects.timer(10); //time in seconds
+            this.timerLabel = new objects.Label("Time left: ", "20px", "Aerial", "#000000", 5, 0, false);
+            config.Game.PLAYER = this.player1;
+            this.Main();
+        };
+        Play.prototype.Update = function () {
+            this.player1.Update();
+            this.testObject.Update();
+            this.testObject2.Update();
+        };
+        Play.prototype.Main = function () {
+            var _this = this;
+            console.log("%cMovement: WASD, Pick Up/ Put Down: E, ...: Spacebar ", "color: blue; font-size: 18px;");
+            //objects
+            this.addChild(this.testObject);
+            this.addChild(this.testObject2);
+            //player
+            this.addChild(this.player1);
+            //table
+            this.addChild(this.table);
+            this.addChild(this.timerLabel);
+            var count;
+            var interval = window.setInterval(function () {
+                count = _this.timer.Update();
+                _this.timerLabel.text = ("Time left: " + _this.timer.getMinutes + "m " + _this.timer.getSeconds + "s");
+                if (count < 1) { // timer ends, do something here (e.g. next scene.)
+                    //TODO: next scene (gameover)
+                    window.clearInterval(interval);
+                }
+            }, 1000);
+            //this._startButton.on("click", ()=>{
+            //config.Game.SCENE = scenes.State.PLAY;
+            //});
+        };
+        return Play;
+    }(objects.Scene));
+    scenes.Play = Play;
+})(scenes || (scenes = {}));
+//# sourceMappingURL=Play.js.map
