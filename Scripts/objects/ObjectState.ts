@@ -4,6 +4,7 @@ module objects
     {
         NORMAL,
         THROWN,
-        PICKED_UP
+        PICKED_UP,
+        HANDED_IN
     }
 }

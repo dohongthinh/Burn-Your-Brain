@@ -23,9 +23,12 @@ var objects;
             _this._dx = 0;
             _this._dy = 0;
             _this._speed = 2;
+            _this._prog = 0;
             _this.x = x;
             _this.y = y;
             _this._state = objects.ObjectState.NORMAL;
+            _this._progLabel = new createjs.Text("", "", "white");
+            config.Game.STAGE.addChild(_this._progLabel);
             _this._normal = normal;
             _this._pickedUp = pickedUp;
             return _this;
@@ -36,6 +39,13 @@ var objects;
             },
             set: function (newDx) {
                 this._dx = newDx;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(classroomItem.prototype, "prog", {
+            get: function () {
+                return this._prog;
             },
             enumerable: true,
             configurable: true
@@ -104,11 +114,26 @@ var objects;
                     this.x += this.dx * this._speed;
                     this.y += this.dy * this._speed;
                     break;
+                case objects.ObjectState.HANDED_IN:
+                    this.x = 9999;
+                    this.y = 9999;
+                    this.scaleX = 0;
+                    this.scaleY = 0;
+                    break;
             }
             this.Interact();
             this._checkBounds();
             managers.Collision.squaredRadiusCheck(config.Game.PLAYER, this);
+            this._progLabel.x = this.x;
+            this._progLabel.y = this.y - 80;
+            if (this._prog == 100) {
+                this.rotation += 0.5;
+            }
             this._updatePosition();
+        };
+        classroomItem.prototype.HandIn = function () {
+            config.Game.STAGE.removeChild(this._progLabel);
+            this.state = objects.ObjectState.HANDED_IN;
         };
         classroomItem.prototype.Reset = function () {
         };
@@ -132,6 +157,12 @@ var objects;
                     this.dir = config.Game.PLAYER.dir;
                     this.state = objects.ObjectState.THROWN;
                     config.Game.PLAYER.isHoldingItem = false;
+                }
+            }
+            if (managers.Input.something && this.isColliding) {
+                if (this._prog < 100) {
+                    this._prog += 1;
+                    this._progLabel.text = this._prog.toFixed(2) + "%";
                 }
             }
         };

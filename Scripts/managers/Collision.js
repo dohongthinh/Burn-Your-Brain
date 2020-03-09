@@ -34,9 +34,11 @@ var managers;
                     console.log("Collision!");
                     object2.isColliding = true;
                 }
+                return true;
             }
             else {
                 object2.isColliding = false;
+                return false;
             }
         };
         return Collision;

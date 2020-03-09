@@ -21,7 +21,7 @@ module managers
                object2.isColliding = false;
             }
         }
-        public static AABBCheck(object1:objects.GameObject, object2:objects.GameObject)
+        public static AABBCheck(object1:objects.GameObject, object2:objects.GameObject):boolean
         {
             let object1Offset = new objects.Vector2(0,0);
             let object2Offset = new objects.Vector2(0,0);
@@ -42,10 +42,12 @@ module managers
                         console.log("Collision!");
                         object2.isColliding = true;
                     }
+                    return true;
             }
             else
             {
                object2.isColliding = false;
+               return false;
             }
         }
     }
