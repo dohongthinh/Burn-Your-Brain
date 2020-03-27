@@ -44,6 +44,10 @@ var Game = (function () {
                 console.log("switch to Play Scene");
                 currentScene = new scenes.Play();
                 break;
+            case scenes.State.END:
+                console.log("switch to End Scene");
+                currentScene = new scenes.End();
+                break;
         }
         currentSceneState = config.Game.SCENE;
         stage.addChild(currentScene);
