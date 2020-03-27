@@ -26,10 +26,10 @@ module scenes
         // PUBLIC METHODS
         public Start(): void 
         {
-            this.test = new createjs.Bitmap("./Assets/Images/Amiya1.png");
+            this.test = new createjs.Bitmap("./Assets/Images/Char2/tile000.png");
             this.test2 = new createjs.Bitmap("./Assets/Images/Amiya2.png");
             this.testObject = new objects.classroomItem("./Assets/Images/Amiya1.png", 420, 240, true, this.test, this.test2);
-            this.player1 = new objects.Character("./Assets/Images/Char Placeholder/Idle/1.png", 320, 240, true);
+            this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 320, 240, true);
             this.dog = new objects.classroomObject("./Assets/Images/Dog-L.png",100,150,true);
             this.score = new objects.Label("Score:","20px", "Arial", "#000000", 15,30,false);
             //start timer
