@@ -14,14 +14,17 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var Table = /** @class */ (function (_super) {
-        __extends(Table, _super);
+    var classroomObject = /** @class */ (function (_super) {
+        __extends(classroomObject, _super);
         // constructor
-        function Table(imagePath, x, y, isCentered) {
-            return _super.call(this, imagePath, x, y, isCentered) || this;
+        function classroomObject(imagePath, x, y, isCentered) {
+            var _this = _super.call(this, imagePath, x, y, isCentered) || this;
+            _this.dy = 3;
+            _this.Start();
+            return _this;
         }
         // PRIVATE LIFE CYCLE METHODS
-        Table.prototype._checkBounds = function () {
+        classroomObject.prototype._checkBounds = function () {
             if (this.x > 640 - this.halfWidth) {
                 this.x = 640 - this.halfWidth;
             }
@@ -32,11 +35,16 @@ var objects;
             // checks the bot boundary
             if (this.y > 480 - this.halfHeight) {
                 this.y = 480 - this.halfHeight;
+                this.dy = -3;
             }
             // check the top boundary
             if (this.y < this.halfHeight + 80) {
                 this.y = this.halfHeight + 80;
+                this.dy = 3;
             }
+        };
+        classroomObject.prototype._Run = function () {
+            this.y += this.dy;
         };
         // PUBLIC LIFE CYCLE METHODS
         /**
@@ -44,14 +52,20 @@ var objects;
          *
          * @memberof Table
          */
-        Table.prototype.Start = function () {
+        classroomObject.prototype.Start = function () {
+            this.regX = this.halfWidth;
+            this.regY = this.halfHeight;
         };
-        Table.prototype.Update = function () {
+        classroomObject.prototype.Update = function () {
+            //this._checkBounds();
+            this._Run();
+            this._checkBounds();
+            this._updatePosition();
         };
-        Table.prototype.Reset = function () {
+        classroomObject.prototype.Reset = function () {
         };
-        return Table;
+        return classroomObject;
     }(objects.GameObject));
-    objects.Table = Table;
+    objects.classroomObject = classroomObject;
 })(objects || (objects = {}));
-//# sourceMappingURL=table.js.map
+//# sourceMappingURL=classroomObstacle.js.map

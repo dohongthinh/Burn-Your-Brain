@@ -1,13 +1,17 @@
 module objects 
 {
-    export class Table extends GameObject
+    export class classroomObject extends GameObject
     {
+       
         // constructor
         constructor(imagePath:string, x:number, y:number, isCentered:boolean)
         {
             super(imagePath, x, y, isCentered);
+            this.Start();
 
         }
+
+        private dy = 3;
 
         // PRIVATE LIFE CYCLE METHODS
         protected _checkBounds(): void {
@@ -22,14 +26,19 @@ module objects
             // checks the bot boundary
             if(this.y > 480 - this.halfHeight) {
                 this.y = 480 - this.halfHeight;
+                this.dy = -3;
             }
 
             // check the top boundary
             if(this.y < this.halfHeight + 80) {
                 this.y = this.halfHeight + 80;
+                this.dy = 3;
             }
         }
 
+        protected _Run():void{
+            this.y += this.dy;
+        }
         // PUBLIC LIFE CYCLE METHODS
 
         /**
@@ -39,12 +48,16 @@ module objects
          */
         public Start():void
         {
-
+            this.regX = this.halfWidth;
+            this.regY = this.halfHeight;
         }
 
         public Update():void
         {
-
+            //this._checkBounds();
+            this._Run();
+            this._checkBounds();
+            this._updatePosition();
         }
 
         public Reset():void

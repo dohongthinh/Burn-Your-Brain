@@ -29,7 +29,7 @@ var scenes;
             this.test2 = new createjs.Bitmap("./Assets/Images/Amiya2.png");
             this.testObject = new objects.classroomItem("./Assets/Images/Amiya1.png", 420, 240, true, this.test, this.test2);
             this.player1 = new objects.Character("./Assets/Images/Char Placeholder/Idle/1.png", 320, 240, true);
-            this.table = new objects.Table("./Assets/Images/Small_square_table.png", 100, 150, true);
+            this.dog = new objects.classroomObject("./Assets/Images/Dog-L.png", 100, 150, true);
             this.score = new objects.Label("Score:", "20px", "Arial", "#000000", 15, 30, false);
             //start timer
             this.timer = new objects.timer(10); //time in seconds
@@ -38,8 +38,8 @@ var scenes;
             this.Main();
         };
         Play.prototype.Update = function () {
-            managers.Collision.AABBCheck(this.testObject, this.table);
-            if (managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject, this.table)) {
+            managers.Collision.AABBCheck(this.testObject, this.dog);
+            if (managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject, this.dog)) {
                 console.log(this.testObject.prog);
                 if (this.testObject.prog >= 50) {
                     this.score.text = "Score: " + this.testObject.prog;
@@ -48,6 +48,7 @@ var scenes;
             }
             this.player1.Update();
             this.testObject.Update();
+            this.dog.Update();
         };
         Play.prototype.Main = function () {
             var _this = this;
@@ -57,8 +58,8 @@ var scenes;
             this.addChild(this.testObject);
             //player
             this.addChild(this.player1);
-            //table
-            this.addChild(this.table);
+            //dog
+            this.addChild(this.dog);
             this.addChild(this.timerLabel);
             this.addChild(this.score);
             var count;
