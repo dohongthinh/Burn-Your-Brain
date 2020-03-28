@@ -14,10 +14,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var classroomItem = /** @class */ (function (_super) {
-        __extends(classroomItem, _super);
+    var Dog = /** @class */ (function (_super) {
+        __extends(Dog, _super);
         //constructor
-        function classroomItem(imagePath, x, y, isCentered, normal, pickedUp) {
+        function Dog(imagePath, x, y, isCentered, normal, pickedUp) {
             if (isCentered === void 0) { isCentered = true; }
             var _this = _super.call(this, imagePath, x, y, isCentered) || this;
             _this._dx = 0;
@@ -33,7 +33,7 @@ var objects;
             _this._pickedUp = pickedUp;
             return _this;
         }
-        Object.defineProperty(classroomItem.prototype, "dx", {
+        Object.defineProperty(Dog.prototype, "dx", {
             get: function () {
                 return this._dx;
             },
@@ -43,14 +43,14 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(classroomItem.prototype, "prog", {
+        Object.defineProperty(Dog.prototype, "prog", {
             get: function () {
                 return this._prog;
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(classroomItem.prototype, "dy", {
+        Object.defineProperty(Dog.prototype, "dy", {
             get: function () {
                 return this._dy;
             },
@@ -60,7 +60,7 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(classroomItem.prototype, "state", {
+        Object.defineProperty(Dog.prototype, "state", {
             get: function () {
                 return this._state;
             },
@@ -70,7 +70,7 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        classroomItem.prototype._checkBounds = function () {
+        Dog.prototype._checkBounds = function () {
             if (this.state != objects.ObjectState.PICKED_UP) {
                 // checks the right boundary
                 if (this.x > 640 - this.halfWidth) {
@@ -94,44 +94,9 @@ var objects;
                 }
             }
         };
-        classroomItem.prototype.Start = function () {
+        Dog.prototype.Start = function () {
         };
-        classroomItem.prototype.Update = function () {
-            //code to make collision with table
-            /*
-            managers.Collision.AABBCheck(config.Game.PLAYER, this);
-            if(this.state == ObjectState.NORMAL && this.isColliding)
-            {
-                let player_bottom = config.Game.PLAYER.y + config.Game.PLAYER.halfHeight;
-                let player_top = config.Game.PLAYER.y - config.Game.PLAYER.halfHeight;
-                let player_left = config.Game.PLAYER.x - config.Game.PLAYER.halfWidth;
-                let player_right = config.Game.PLAYER.x + config.Game.PLAYER.halfWidth;
-                let tiles_bottom = this.y + this.halfHeight;
-                let tiles_top = this.y - this.halfHeight;
-                let tiles_left = this.x - this.halfWidth;
-                let tiles_right = this.x + this.halfWidth;
-                let b_collision = tiles_bottom - player_top;
-                let t_collision = player_bottom - tiles_top;
-                let l_collision = player_right - tiles_left;
-                let r_collision = tiles_right - player_left;
-                if (t_collision < b_collision && t_collision < l_collision && t_collision < r_collision && managers.Input.moveDown )
-                {
-                    config.Game.PLAYER.y = this.y - this.halfHeight;
-                }
-                if (b_collision < t_collision && b_collision < l_collision && b_collision < r_collision && managers.Input.moveUp )
-                {
-                    config.Game.PLAYER.y = this.y + this.halfHeight;
-                }
-                if (l_collision < r_collision && l_collision < t_collision && l_collision < b_collision && managers.Input.moveRight)
-                {
-                    config.Game.PLAYER.x = this.x - this.halfWidth;
-                }
-                if (r_collision < l_collision && r_collision < t_collision && r_collision < b_collision && managers.Input.moveLeft)
-                {
-                    config.Game.PLAYER.x = this.x + this.halfWidth;
-                }
-            }
-            */
+        Dog.prototype.Update = function () {
             switch (this.state) {
                 case objects.ObjectState.NORMAL:
                     this.image = this._normal.image;
@@ -166,16 +131,16 @@ var objects;
             }
             this._updatePosition();
         };
-        classroomItem.prototype.HandIn = function () {
+        Dog.prototype.HandIn = function () {
             config.Game.STAGE.removeChild(this._progLabel);
             this.state = objects.ObjectState.HANDED_IN;
         };
-        classroomItem.prototype.Reset = function () {
+        Dog.prototype.Reset = function () {
         };
-        classroomItem.prototype.Interact = function () {
+        Dog.prototype.Interact = function () {
             //pick up / put down object
             if (managers.Input.pickUp) {
-                if (this.isColliding && this.state != objects.ObjectState.PICKED_UP && !config.Game.PLAYER.isHoldingItem && this._prog == 100) {
+                if (this.isColliding && this.state != objects.ObjectState.PICKED_UP && !config.Game.PLAYER.isHoldingItem) {
                     this.state = objects.ObjectState.PICKED_UP;
                     config.Game.PLAYER.isHoldingItem = true;
                     managers.Input.pickUp = false;
@@ -201,8 +166,8 @@ var objects;
                 }
             }
         };
-        return classroomItem;
+        return Dog;
     }(objects.GameObject));
-    objects.classroomItem = classroomItem;
+    objects.Dog = Dog;
 })(objects || (objects = {}));
-//# sourceMappingURL=classroomItem.js.map
+//# sourceMappingURL=Dog.js.map

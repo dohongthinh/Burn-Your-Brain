@@ -25,11 +25,11 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Play.prototype.Start = function () {
-            this.test = new createjs.Bitmap("./Assets/Images/Char2/tile000.png");
-            this.test2 = new createjs.Bitmap("./Assets/Images/Amiya2.png");
-            this.testObject = new objects.classroomItem("./Assets/Images/Amiya1.png", 420, 240, true, this.test, this.test2);
-            this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 320, 240, true);
-            this.dog1 = new objects.classroomObject("./Assets/Images/Dog-L.png", 100, 150, true);
+            this.test = new createjs.Bitmap("./Assets/Images/closedNotebook.png");
+            this.test2 = new createjs.Bitmap("./Assets/Images/openNotebook.png");
+            this.testObject = new objects.classroomItem("./Assets/Images/openNotebook.png", 420, 240, true, this.test, this.test2);
+            this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 50, 240, true);
+            this.table = new objects.classroomObject("./Assets/Images/small_square_table.png", 100, 150, true);
             this.score = new objects.Label("Score:", "20px", "Arial", "#000000", 15, 30, false);
             //start timer
             this.timer = new objects.timer(10); //time in seconds
@@ -38,22 +38,25 @@ var scenes;
             this.Main();
         };
         Play.prototype.Update = function () {
-            managers.Collision.AABBCheck(this.testObject, this.dog1);
-            if (managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject, this.dog1)) {
+            managers.Collision.AABBCheck(this.testObject, this.table);
+            if (managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject, this.table)) {
                 console.log(this.testObject.prog);
                 if (this.testObject.prog >= 50) {
                     this.score.text = "Score: " + this.testObject.prog;
                     this.testObject.HandIn();
                 }
             }
-            managers.Collision.AABBCheck(this.player1, this.dog1);
-            if (managers.Collision.AABBCheck(this.player1, this.dog1)) {
+            /*
+            managers.Collision.AABBCheck(this.player1,this.dog1)
+            if(managers.Collision.AABBCheck(this.player1,this.dog1))
+            {
                 console.log("go to end scene");
-                config.Game.SCENE = scenes.State.END;
+                config.Game.SCENE = scenes.State.END
             }
+            */
             this.player1.Update();
             this.testObject.Update();
-            this.dog1.Update();
+            //this.dog1.Update();
         };
         Play.prototype.Main = function () {
             var _this = this;
@@ -64,7 +67,7 @@ var scenes;
             //player
             this.addChild(this.player1);
             //dog
-            this.addChild(this.dog1);
+            this.addChild(this.table);
             this.addChild(this.timerLabel);
             this.addChild(this.score);
             var count;
