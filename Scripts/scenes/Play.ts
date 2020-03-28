@@ -8,7 +8,7 @@ module scenes
         private testObject:objects.classroomItem;
         private test:createjs.Bitmap;
         private test2:createjs.Bitmap;
-        private dog:objects.classroomObject;
+        private dog1:objects.classroomObject;
         private timer:objects.timer;
         private timerLabel: objects.Label;
         private score:createjs.Text;
@@ -26,11 +26,11 @@ module scenes
         // PUBLIC METHODS
         public Start(): void 
         {
-            this.test = new createjs.Bitmap("./Assets/Images/Amiya1.png");
+            this.test = new createjs.Bitmap("./Assets/Images/Char2/tile000.png");
             this.test2 = new createjs.Bitmap("./Assets/Images/Amiya2.png");
             this.testObject = new objects.classroomItem("./Assets/Images/Amiya1.png", 420, 240, true, this.test, this.test2);
-            this.player1 = new objects.Character("./Assets/Images/Char Placeholder/Idle/1.png", 320, 240, true);
-            this.dog = new objects.classroomObject("./Assets/Images/Dog-R.png",100,150,true);
+            this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 320, 240, true);
+            this.dog1 = new objects.classroomObject("./Assets/Images/Dog-L.png",100,150,true);
             this.score = new objects.Label("Score:","20px", "Arial", "#000000", 15,30,false);
             //start timer
             this.timer = new objects.timer(10); //time in seconds
@@ -42,8 +42,8 @@ module scenes
         
         public Update(): void 
         {
-            managers.Collision.AABBCheck(this.testObject,this.dog)
-            if(managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject,this.dog))
+            managers.Collision.AABBCheck(this.testObject,this.dog1)
+            if(managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject,this.dog1))
             {
                 console.log(this.testObject.prog);
                 if(this.testObject.prog >= 50)
@@ -52,15 +52,15 @@ module scenes
                     this.testObject.HandIn();
                 }
             }   
-            managers.Collision.AABBCheck(this.player1,this.dog)
-            if(managers.Collision.AABBCheck(this.player1,this.dog))
+            managers.Collision.AABBCheck(this.player1,this.dog1)
+            if(managers.Collision.AABBCheck(this.player1,this.dog1))
             {
                 console.log("go to end scene");
                 config.Game.SCENE = scenes.State.END
             }
             this.player1.Update();
             this.testObject.Update();
-            this.dog.Update();
+            this.dog1.Update();
         }
         
         public Main(): void 
@@ -75,7 +75,7 @@ module scenes
             this.addChild(this.player1);
     
             //dog
-            this.addChild(this.dog);
+            this.addChild(this.dog1);
 
             this.addChild(this.timerLabel);
             this.addChild(this.score);
