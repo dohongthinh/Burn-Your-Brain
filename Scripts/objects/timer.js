@@ -20,7 +20,10 @@ var objects;
             this.minutes = Math.floor((this.timeLeft % (1000 * 60 * 60)) / (1000 * 60));
             this.seconds = Math.floor((this.timeLeft % (1000 * 60)) / 1000);
             console.log("Time left: " + this.minutes + "m " + this.seconds + "s ");
-            //console.log(this.now);
+            if (this.seconds == 0) {
+                console.log("go to end scene");
+                config.Game.SCENE = scenes.State.END;
+            }
             return this.timeLeft;
         };
         Object.defineProperty(timer.prototype, "getMinutes", {
