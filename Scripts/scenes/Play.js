@@ -34,7 +34,7 @@ var scenes;
             this.dog1 = new objects.Dog("./Assets/Images/Dog-L.png", 200, 40, true);
             this.table1 = new objects.classroomObstacle("./Assets/Images/small_square_table.png", 300, 200, true);
             //start timer
-            this.timer = new objects.timer(10); //time in seconds
+            this.timer = new objects.timer(21); //time in seconds
             this.timerLabel = new objects.Label("Time left: ", "20px", "Arial", "#000000", 15, 10, false);
             config.Game.PLAYER = this.player1;
             this.Main();
