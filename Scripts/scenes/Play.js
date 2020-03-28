@@ -27,10 +27,12 @@ var scenes;
         Play.prototype.Start = function () {
             this.test = new createjs.Bitmap("./Assets/Images/closedNotebook.png");
             this.test2 = new createjs.Bitmap("./Assets/Images/openNotebook.png");
-            this.testObject = new objects.classroomItem("./Assets/Images/openNotebook.png", 420, 240, true, this.test, this.test2);
+            this.testObject = new objects.classroomItem("./Assets/Images/openNotebook.png", 470, 240, true, this.test, this.test2);
             this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 50, 240, true);
-            this.table = new objects.classroomObject("./Assets/Images/small_square_table.png", 100, 150, true);
+            this.player2 = new objects.Character("./Assets/Images/Char2/tile000.png", 100, 150, true);
             this.score = new objects.Label("Score:", "20px", "Arial", "#000000", 15, 30, false);
+            this.dog1 = new objects.Dog("./Assets/Images/Dog-L.png", 200, 40, true);
+            this.table1 = new objects.classroomObstacle("./Assets/Images/small_square_table.png", 300, 200, true);
             //start timer
             this.timer = new objects.timer(10); //time in seconds
             this.timerLabel = new objects.Label("Time left: ", "20px", "Arial", "#000000", 15, 10, false);
@@ -38,25 +40,23 @@ var scenes;
             this.Main();
         };
         Play.prototype.Update = function () {
-            managers.Collision.AABBCheck(this.testObject, this.table);
-            if (managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject, this.table)) {
+            managers.Collision.AABBCheck(this.testObject, this.player2);
+            if (managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject, this.player2)) {
                 console.log(this.testObject.prog);
                 if (this.testObject.prog >= 50) {
                     this.score.text = "Score: " + this.testObject.prog;
                     this.testObject.HandIn();
                 }
             }
-            /*
-            managers.Collision.AABBCheck(this.player1,this.dog1)
-            if(managers.Collision.AABBCheck(this.player1,this.dog1))
-            {
+            managers.Collision.AABBCheck(this.player1, this.dog1);
+            if (managers.Collision.AABBCheck(this.player1, this.dog1)) {
                 console.log("go to end scene");
-                config.Game.SCENE = scenes.State.END
+                config.Game.SCENE = scenes.State.END;
             }
-            */
             this.player1.Update();
             this.testObject.Update();
-            //this.dog1.Update();
+            this.dog1.Update();
+            this.table1.Update();
         };
         Play.prototype.Main = function () {
             var _this = this;
@@ -64,10 +64,12 @@ var scenes;
             console.log("%cHand in assignment at the table (only if assignment progress is > 50%)", "color: black; font-size: 12px;");
             //objects
             this.addChild(this.testObject);
+            this.addChild(this.table1);
             //player
             this.addChild(this.player1);
+            this.addChild(this.player2);
             //dog
-            this.addChild(this.table);
+            this.addChild(this.dog1);
             this.addChild(this.timerLabel);
             this.addChild(this.score);
             var count;

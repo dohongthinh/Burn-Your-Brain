@@ -14,17 +14,27 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var classroomObject = /** @class */ (function (_super) {
-        __extends(classroomObject, _super);
+    var classroomObstacle = /** @class */ (function (_super) {
+        __extends(classroomObstacle, _super);
         // constructor
-        function classroomObject(imagePath, x, y, isCentered) {
+        function classroomObstacle(imagePath, x, y, isCentered) {
             var _this = _super.call(this, imagePath, x, y, isCentered) || this;
             _this.dy = 3;
             _this.Start();
             return _this;
         }
+        Object.defineProperty(classroomObstacle.prototype, "state", {
+            get: function () {
+                return this._state;
+            },
+            set: function (newState) {
+                this._state = newState;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // PRIVATE LIFE CYCLE METHODS
-        classroomObject.prototype._checkBounds = function () {
+        classroomObstacle.prototype._checkBounds = function () {
             if (this.x > 640 - this.halfWidth) {
                 this.x = 640 - this.halfWidth;
             }
@@ -43,29 +53,49 @@ var objects;
                 this.dy = 3;
             }
         };
-        classroomObject.prototype._Run = function () {
-            this.y += this.dy;
-        };
         // PUBLIC LIFE CYCLE METHODS
         /**
          * Initialization happens here
          *
-         * @memberof Table
+         * @memberof classroomObstacle
          */
-        classroomObject.prototype.Start = function () {
+        classroomObstacle.prototype.Start = function () {
             this.regX = this.halfWidth;
             this.regY = this.halfHeight;
         };
-        classroomObject.prototype.Update = function () {
-            //this._checkBounds();
-            this._Run();
-            this._checkBounds();
-            this._updatePosition();
+        classroomObstacle.prototype.Update = function () {
+            managers.Collision.AABBCheck(config.Game.PLAYER, this);
+            if (this.isColliding) {
+                var player_bottom = config.Game.PLAYER.y + config.Game.PLAYER.halfHeight;
+                var player_top = config.Game.PLAYER.y - config.Game.PLAYER.halfHeight;
+                var player_left = config.Game.PLAYER.x - config.Game.PLAYER.halfWidth;
+                var player_right = config.Game.PLAYER.x + config.Game.PLAYER.halfWidth;
+                var tiles_bottom = this.y + this.halfHeight;
+                var tiles_top = this.y - this.halfHeight;
+                var tiles_left = this.x - this.halfWidth;
+                var tiles_right = this.x + this.halfWidth;
+                var b_collision = tiles_bottom - player_top;
+                var t_collision = player_bottom - tiles_top;
+                var l_collision = player_right - tiles_left;
+                var r_collision = tiles_right - player_left;
+                if (t_collision < b_collision && t_collision < l_collision && t_collision < r_collision && managers.Input.moveDown) {
+                    config.Game.PLAYER.y = this.y - this.halfHeight;
+                }
+                if (b_collision < t_collision && b_collision < l_collision && b_collision < r_collision && managers.Input.moveUp) {
+                    config.Game.PLAYER.y = this.y + this.halfHeight;
+                }
+                if (l_collision < r_collision && l_collision < t_collision && l_collision < b_collision && managers.Input.moveRight) {
+                    config.Game.PLAYER.x = this.x - this.halfWidth;
+                }
+                if (r_collision < l_collision && r_collision < t_collision && r_collision < b_collision && managers.Input.moveLeft) {
+                    config.Game.PLAYER.x = this.x + this.halfWidth;
+                }
+            }
         };
-        classroomObject.prototype.Reset = function () {
+        classroomObstacle.prototype.Reset = function () {
         };
-        return classroomObject;
+        return classroomObstacle;
     }(objects.GameObject));
-    objects.classroomObject = classroomObject;
+    objects.classroomObstacle = classroomObstacle;
 })(objects || (objects = {}));
 //# sourceMappingURL=classroomObstacle.js.map
