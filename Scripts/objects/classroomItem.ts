@@ -9,7 +9,7 @@ module objects{
         private _prog:number = 0;
         private _state:ObjectState;
         private _writeSound: createjs.AbstractSoundInstance;
-
+        private _isSet:boolean = true;
 
         public get writeSound(): createjs.AbstractSoundInstance{
             return this._writeSound;
@@ -43,6 +43,9 @@ module objects{
         {
             this._state = newState;
         }
+        public  getRandomInt(max:number): number{
+            return Math.floor(Math.random() * Math.floor(max));
+          }
 
         protected _checkBounds(): void {
             if(this.state != ObjectState.PICKED_UP)
@@ -96,12 +99,10 @@ module objects{
                     break;
                 
                 case ObjectState.HANDED_IN:
-                    this.x =9999;
-                    this.y = 9999;
-                    this.scaleX = 0;
-                    this.scaleY = 0;
+                    this.Reset();
                     break;
             }
+            
             this.Interact();
             this._checkBounds();
             managers.Collision.squaredRadiusCheck(config.Game.PLAYER, this);
@@ -119,6 +120,16 @@ module objects{
             this.state = ObjectState.HANDED_IN;
         }
         public Reset(): void {
+            this.x = this.getRandomInt(640);
+            this.y = this.getRandomInt(400);
+            this._prog = 0;
+            this._dx = 0;
+            this._dy = 0;
+            this._state = ObjectState.NORMAL;
+            this._progLabel = new createjs.Text("","","white");
+            config.Game.STAGE.addChild(this._progLabel)
+            config.Game.PLAYER.isHoldingItem = false;
+            managers.Input.pickUp = false;
         }
         //constructor
         constructor(imagePath:string, x:number, y:number, isCentered:boolean = true, normal:createjs.Bitmap, pickedUp:createjs.Bitmap){
@@ -163,10 +174,27 @@ module objects{
             {
                 if(this._prog <100)
                 {
+                    if (managers.Input.playWrite){
+                        this._writeSound = createjs.Sound.play("writing");
+                        this._writeSound.paused = false;
+                        this._writeSound.volume = 0.25;
+                        managers.Input.playWrite = false;
+                    }
                     this._prog +=1;
                     this._progLabel.text = this._prog.toFixed(2) +"%"
+                    if (this._prog == 100){
+                        this._writeSound.stop();
+                        managers.Input.playWrite = true;
+                    }
+                }
+                
+            } else if (!managers.Input.something && this.isColliding) {
+                if (this._writeSound != null){
+                    this._writeSound.paused = true;
+                    managers.Input.playWrite = true;
                 }
             }
+            
         }
     }
 }

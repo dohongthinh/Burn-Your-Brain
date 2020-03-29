@@ -22,6 +22,7 @@ var scenes;
             var _this = _super.call(this) || this;
             // initialization
             _this.endLabel = new objects.Label();
+            _this.scoreBoardLabel = new objects.Label();
             _this.backButton = new objects.Button();
             _this.Start();
             return _this;
@@ -30,7 +31,10 @@ var scenes;
         // PUBLIC METHODS
         End.prototype.Start = function () {
             //instantiate a new Text object
-            this.endLabel = new objects.Label("You Score: " + config.Game.SCORE, "70px", "Consolas", "#000000", 320, 180, true);
+            if (config.Game.SCORE > config.Game.SCOREBOARD)
+                config.Game.SCOREBOARD = config.Game.SCORE;
+            this.scoreBoardLabel = new objects.Label("Highest Score: " + config.Game.SCOREBOARD, "40px", "Consolas", "#FFFFFF", 320, 100, true);
+            this.endLabel = new objects.Label("You Score: " + config.Game.SCORE, "50px", "Consolas", "#000000", 320, 180, true);
             // buttons
             this.backButton = new objects.Button('./Assets/images/backButton.png', 320, 430, true);
             this.Main();
@@ -38,9 +42,11 @@ var scenes;
         End.prototype.Update = function () {
         };
         End.prototype.Main = function () {
+            this.addChild(this.scoreBoardLabel);
             this.addChild(this.endLabel);
             this.addChild(this.backButton);
             this.backButton.on("click", function () {
+                config.Game.SCORE = 0;
                 config.Game.SCENE = scenes.State.START;
             });
         };

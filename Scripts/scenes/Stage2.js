@@ -47,7 +47,7 @@ var scenes;
                     config.Game.SCORE += this.testObject.prog;
                     this.score.text = "Score: " + config.Game.SCORE;
                     this.testObject.HandIn();
-                    config.Game.SCENE = scenes.State.END;
+                    //config.Game.SCENE = scenes.State.END;
                 }
             }
             managers.Collision.AABBCheck(this.player1, this.dog1);
@@ -88,6 +88,7 @@ var scenes;
         };
         //clear the stage
         Stage2.prototype.Clean = function () {
+            this.testObject.writeSound.stop();
             this.dog1.barkSound.stop();
             this.removeAllChildren();
         };

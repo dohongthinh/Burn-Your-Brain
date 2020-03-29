@@ -48,13 +48,9 @@ module scenes
             if(managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject,this.player2))
             {
                 console.log(this.testObject.prog);
-                if(this.testObject.prog >= 50)
-                {
-                    config.Game.SCORE += this.testObject.prog;
-                    this.score.text = "Score: " + config.Game.SCORE;
-                    this.testObject.HandIn();
-                    config.Game.SCENE = scenes.State.STAGE2;
-                }
+                config.Game.SCORE += this.testObject.prog;
+                this.score.text = "Score: " + config.Game.SCORE;
+                this.testObject.HandIn();
             }  
              
             
@@ -91,6 +87,9 @@ module scenes
                     //TODO: next scene (gameover)
                     window.clearInterval(interval);
                     console.log("clearInterval")
+                    this.testObject.writeSound.stop();
+                    if (config.Game.SCORE >= 100)
+                        config.Game.SCENE = scenes.State.STAGE2;
                 }
             }, 1000);
 

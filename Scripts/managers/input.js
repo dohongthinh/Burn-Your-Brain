@@ -69,6 +69,7 @@ var managers;
         Input.moveRight = false;
         Input.yeet = false;
         Input.something = false;
+        Input.playWrite = true;
         return Input;
     }());
     managers.Input = Input;
