@@ -35,23 +35,6 @@ var objects;
         });
         // PRIVATE LIFE CYCLE METHODS
         classroomObstacle.prototype._checkBounds = function () {
-            if (this.x > 640 - this.halfWidth) {
-                this.x = 640 - this.halfWidth;
-            }
-            // check the left boundary
-            if (this.x < this.halfWidth) {
-                this.x = this.halfWidth;
-            }
-            // checks the bot boundary
-            if (this.y > 480 - this.halfHeight) {
-                this.y = 480 - this.halfHeight;
-                this.dy = -3;
-            }
-            // check the top boundary
-            if (this.y < this.halfHeight + 80) {
-                this.y = this.halfHeight + 80;
-                this.dy = 3;
-            }
         };
         // PUBLIC LIFE CYCLE METHODS
         /**
@@ -60,8 +43,6 @@ var objects;
          * @memberof classroomObstacle
          */
         classroomObstacle.prototype.Start = function () {
-            this.regX = this.halfWidth;
-            this.regY = this.halfHeight;
         };
         classroomObstacle.prototype.Update = function () {
             managers.Collision.AABBCheck(config.Game.PLAYER, this);
@@ -70,25 +51,21 @@ var objects;
                 var player_top = config.Game.PLAYER.y - config.Game.PLAYER.halfHeight;
                 var player_left = config.Game.PLAYER.x - config.Game.PLAYER.halfWidth;
                 var player_right = config.Game.PLAYER.x + config.Game.PLAYER.halfWidth;
-                var tiles_bottom = this.y + this.halfHeight;
-                var tiles_top = this.y - this.halfHeight;
-                var tiles_left = this.x - this.halfWidth;
-                var tiles_right = this.x + this.halfWidth;
-                var b_collision = tiles_bottom - player_top;
-                var t_collision = player_bottom - tiles_top;
-                var l_collision = player_right - tiles_left;
-                var r_collision = tiles_right - player_left;
-                if (t_collision < b_collision && t_collision < l_collision && t_collision < r_collision && managers.Input.moveDown) {
-                    config.Game.PLAYER.y = this.y - this.halfHeight;
+                var object_bottom = this.y + this.halfHeight;
+                var object_top = this.y - this.halfHeight;
+                var object_left = this.x - this.halfWidth;
+                var object_right = this.x + this.halfWidth;
+                if (player_bottom > object_top && managers.Input.moveDown) {
+                    config.Game.PLAYER.y = config.Game.PLAYER.y - 5;
                 }
-                if (b_collision < t_collision && b_collision < l_collision && b_collision < r_collision && managers.Input.moveUp) {
-                    config.Game.PLAYER.y = this.y + this.halfHeight;
+                if (player_top < object_bottom && managers.Input.moveUp) {
+                    config.Game.PLAYER.y = config.Game.PLAYER.y + 5;
                 }
-                if (l_collision < r_collision && l_collision < t_collision && l_collision < b_collision && managers.Input.moveRight) {
-                    config.Game.PLAYER.x = this.x - this.halfWidth;
+                if (player_right > object_left && managers.Input.moveRight) {
+                    config.Game.PLAYER.x = config.Game.PLAYER.x - 5;
                 }
-                if (r_collision < l_collision && r_collision < t_collision && r_collision < b_collision && managers.Input.moveLeft) {
-                    config.Game.PLAYER.x = this.x + this.halfWidth;
+                if (player_left < object_right && managers.Input.moveLeft) {
+                    config.Game.PLAYER.x = config.Game.PLAYER.x + 5;
                 }
             }
         };

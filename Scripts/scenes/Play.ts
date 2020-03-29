@@ -35,7 +35,7 @@ module scenes
             this.player2 = new objects.Character("./Assets/Images/Char2/tile000.png",100,150,true);
             this.score = new objects.Label("Score:","20px", "Arial", "#000000", 15,30,false);
             this.dog1 = new objects.Dog("./Assets/Images/Dog-L.png",200,40,true);
-            this.table1 = new objects.classroomObstacle("./Assets/Images/small_square_table.png",300,200,true);
+            this.table1 = new objects.classroomObstacle("./Assets/Images/Amiya1.png",300,200,true);
             //start timer
             this.timer = new objects.timer(21); //time in seconds
             this.timerLabel = new objects.Label("Time left: ", "20px", "Arial", "#000000", 15 , 10, false);
