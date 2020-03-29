@@ -26,7 +26,7 @@ module scenes
         public Start(): void 
         {
              //instantiate a new Text object
-            this.endLabel = new objects.Label("You Lost", "80px", "Consolas", "#000000", 320, 180, true);
+            this.endLabel = new objects.Label("You Score: " + config.Game.SCORE, "70px", "Consolas", "#000000", 320, 180, true);
             // buttons
              this.backButton = new objects.Button('./Assets/images/backButton.png', 320, 430, true);
             this.Main();
