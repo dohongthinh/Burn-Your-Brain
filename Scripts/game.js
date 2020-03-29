@@ -6,6 +6,18 @@ var Game = (function () {
     var stage;
     var currentSceneState;
     var currentScene;
+    var assets;
+    var assetManifest = [
+        { id: "barking", src: "./Assets/Sounds/Barking.wav" },
+        { id: "writing", src: "./Assets/Sounds/Pencil Writing.wav" }
+    ];
+    function Preload() {
+        assets = new createjs.LoadQueue(); // asset container
+        config.Game.ASSETS = assets; // make a reference to the assets in the global config
+        assets.installPlugin(createjs.Sound); // supports sound preloading
+        assets.loadManifest(assetManifest);
+        assets.on("complete", Start);
+    }
     function Start() {
         stage = new createjs.Stage(canvas);
         config.Game.STAGE = stage; // create a reference to the Global Stage
@@ -56,6 +68,6 @@ var Game = (function () {
         currentSceneState = config.Game.SCENE;
         stage.addChild(currentScene);
     }
-    window.addEventListener('load', Start);
+    window.addEventListener('load', Preload);
 })();
 //# sourceMappingURL=game.js.map

@@ -2,7 +2,13 @@ module objects
 {
     export class Dog extends GameObject
     {
-       
+        // PRIVATE INSTANCE MEMBERS
+        private _barkSound : createjs.AbstractSoundInstance;
+
+        // readonly property
+        public get barkSound(): createjs.AbstractSoundInstance{
+            return this._barkSound;
+        }
         // constructor
         constructor(imagePath:string, x:number, y:number, isCentered:boolean)
         {
@@ -50,6 +56,9 @@ module objects
         {
             this.regX = this.halfWidth;
             this.regY = this.halfHeight;
+            this._barkSound = createjs.Sound.play("barking");
+            this._barkSound.volume = 0.25;
+            this._barkSound.loop = -1;
         }
 
         public Update():void
