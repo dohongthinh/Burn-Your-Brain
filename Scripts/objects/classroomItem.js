@@ -33,6 +33,13 @@ var objects;
             _this._pickedUp = pickedUp;
             return _this;
         }
+        Object.defineProperty(classroomItem.prototype, "writeSound", {
+            get: function () {
+                return this._writeSound;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(classroomItem.prototype, "dx", {
             get: function () {
                 return this._dx;

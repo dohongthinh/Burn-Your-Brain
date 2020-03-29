@@ -8,7 +8,12 @@ module objects{
         private _speed:number = 2;
         private _prog:number = 0;
         private _state:ObjectState;
+        private _writeSound: createjs.AbstractSoundInstance;
 
+
+        public get writeSound(): createjs.AbstractSoundInstance{
+            return this._writeSound;
+        }
         get dx()
         {
             return this._dx;

@@ -33,7 +33,7 @@ module scenes
             this.testObject = new objects.classroomItem("./Assets/Images/openNotebook.png", 470, 240, true, this.test, this.test2);
             this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 50, 240, true);
             this.player2 = new objects.Character("./Assets/Images/Pro000.png",100,150,true);
-            this.score = new objects.Label("Score:","20px", "Arial", "#000000", 15,30,false);
+            this.score = new objects.Label("Score: " + config.Game.SCORE,"20px", "Arial", "#000000", 15,30,false);
             this.dog1 = new objects.Dog("./Assets/Images/Dog-L.png",200,40,true);
             this.table1 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png",300,200,true);
             //start timer
@@ -52,7 +52,8 @@ module scenes
                 console.log(this.testObject.prog);
                 if(this.testObject.prog >= 50)
                 {
-                    this.score.text = "Score: " + this.testObject.prog;
+                    config.Game.SCORE += this.testObject.prog;
+                    this.score.text = "Score: " + config.Game.SCORE;
                     this.testObject.HandIn();
                 }
             }  
