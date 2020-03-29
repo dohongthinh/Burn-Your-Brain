@@ -14,17 +14,17 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var Tutorial = /** @class */ (function (_super) {
-        __extends(Tutorial, _super);
+    var Stage1 = /** @class */ (function (_super) {
+        __extends(Stage1, _super);
         // CONSTRUCTOR
-        function Tutorial() {
+        function Stage1() {
             var _this = _super.call(this) || this;
             _this.Start();
             return _this;
         }
         // PRIVATE METHODS
         // PUBLIC METHODS
-        Tutorial.prototype.Start = function () {
+        Stage1.prototype.Start = function () {
             this.test = new createjs.Bitmap("./Assets/Images/closedNotebook.png");
             this.test2 = new createjs.Bitmap("./Assets/Images/openNotebook.png");
             this.testObject = new objects.classroomItem("./Assets/Images/openNotebook.png", 470, 240, true, this.test, this.test2);
@@ -38,21 +38,21 @@ var scenes;
             config.Game.PLAYER = this.player1;
             this.Main();
         };
-        Tutorial.prototype.Update = function () {
+        Stage1.prototype.Update = function () {
             managers.Collision.AABBCheck(this.testObject, this.player2);
             if (managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject, this.player2)) {
                 console.log(this.testObject.prog);
                 if (this.testObject.prog >= 50) {
                     this.score.text = "Score: " + this.testObject.prog;
                     this.testObject.HandIn();
-                    config.Game.SCENE = scenes.State.PLAY;
+                    config.Game.SCENE = scenes.State.STAGE2;
                 }
             }
             this.player1.Update();
             this.testObject.Update();
             this.table1.Update();
         };
-        Tutorial.prototype.Main = function () {
+        Stage1.prototype.Main = function () {
             var _this = this;
             console.log("%cMovement: WASD, Pick Up/ Put Down: E, Do Assignment: F, Throw: Spacebar", "color: blue; font-size: 18px;");
             console.log("%cHand in assignment at the table (only if assignment progress is > 50%)", "color: black; font-size: 12px;");
@@ -74,8 +74,8 @@ var scenes;
                 }
             }, 1000);
         };
-        return Tutorial;
+        return Stage1;
     }(objects.Scene));
-    scenes.Tutorial = Tutorial;
+    scenes.Stage1 = Stage1;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=Tutorial.js.map
+//# sourceMappingURL=Stage1.js.map

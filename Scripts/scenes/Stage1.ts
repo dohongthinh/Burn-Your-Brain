@@ -1,6 +1,6 @@
 module scenes
 {
-    export class Play extends objects.Scene
+    export class Stage1 extends objects.Scene
     {
 
         // PUBLIC PROPERTIES
@@ -12,7 +12,6 @@ module scenes
         private timer:objects.timer;
         private timerLabel: objects.Label;
         private score:createjs.Text;
-        private dog1:objects.Dog;
         private table1:objects.classroomObstacle;
      
         // CONSTRUCTOR
@@ -34,8 +33,7 @@ module scenes
             this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 50, 240, true);
             this.player2 = new objects.Character("./Assets/Images/Char2/tile000.png",100,150,true);
             this.score = new objects.Label("Score:","20px", "Arial", "#000000", 15,30,false);
-            this.dog1 = new objects.Dog("./Assets/Images/Dog-L.png",200,40,true);
-            this.table1 = new objects.classroomObstacle("./Assets/Images/Amiya1.png",300,200,true);
+            this.table1 = new objects.classroomObstacle("./Assets/Images/small_square_table.png",300,200,true);
             //start timer
             this.timer = new objects.timer(21); //time in seconds
             this.timerLabel = new objects.Label("Time left: ", "20px", "Arial", "#000000", 15 , 10, false);
@@ -54,19 +52,13 @@ module scenes
                 {
                     this.score.text = "Score: " + this.testObject.prog;
                     this.testObject.HandIn();
+                    config.Game.SCENE = scenes.State.STAGE2;
                 }
             }  
              
-            managers.Collision.AABBCheck(this.player1,this.dog1)
-            if(managers.Collision.AABBCheck(this.player1,this.dog1))
-            {
-                console.log("go to end scene");
-                config.Game.SCENE = scenes.State.END
-            }
             
             this.player1.Update();
             this.testObject.Update();
-            this.dog1.Update();
             this.table1.Update();
             
         }
@@ -83,8 +75,6 @@ module scenes
             //player
             this.addChild(this.player1);
             this.addChild(this.player2);
-            //dog
-            this.addChild(this.dog1);
 
             this.addChild(this.timerLabel);
             this.addChild(this.score);
@@ -100,9 +90,7 @@ module scenes
                     window.clearInterval(interval);
                 }
             }, 1000);
-            //this._startButton.on("click", ()=>{
-                //config.Game.SCENE = scenes.State.PLAY;
-            //});
+
 
         }
 
