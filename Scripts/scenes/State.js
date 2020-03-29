@@ -5,9 +5,9 @@ var scenes;
     (function (State) {
         State[State["NO_SCENE"] = -1] = "NO_SCENE";
         State[State["START"] = 0] = "START";
-        State[State["PLAY"] = 1] = "PLAY";
-        State[State["END"] = 2] = "END";
-        State[State["TUTORIAL"] = 3] = "TUTORIAL";
+        State[State["END"] = 1] = "END";
+        State[State["STAGE1"] = 2] = "STAGE1";
+        State[State["STAGE2"] = 3] = "STAGE2";
         State[State["NUM_OF_SCENES"] = 4] = "NUM_OF_SCENES";
     })(State = scenes.State || (scenes.State = {}));
 })(scenes || (scenes = {}));

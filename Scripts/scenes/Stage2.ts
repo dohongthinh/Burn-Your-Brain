@@ -1,6 +1,6 @@
 module scenes
 {
-    export class Play extends objects.Scene
+    export class Stage2 extends objects.Scene
     {
 
         // PUBLIC PROPERTIES

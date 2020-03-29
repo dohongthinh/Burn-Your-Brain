@@ -40,13 +40,13 @@ var Game = (function () {
                 console.log("switch to Start Scene");
                 currentScene = new scenes.Start();
                 break;
-            case scenes.State.PLAY:
-                console.log("switch to Play Scene");
-                currentScene = new scenes.Play();
+            case scenes.State.STAGE1:
+                console.log("switch to Stage1 Scene");
+                currentScene = new scenes.Stage1();
                 break;
-            case scenes.State.TUTORIAL:
-                console.log("switch to Tutorial Scene");
-                currentScene = new scenes.Tutorial();
+            case scenes.State.STAGE2:
+                console.log("switch to Stage2 Scene");
+                currentScene = new scenes.Stage2();
                 break;
             case scenes.State.END:
                 console.log("switch to End Scene");

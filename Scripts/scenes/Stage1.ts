@@ -1,6 +1,6 @@
 module scenes
 {
-    export class Tutorial extends objects.Scene
+    export class Stage1 extends objects.Scene
     {
 
         // PUBLIC PROPERTIES
@@ -52,7 +52,7 @@ module scenes
                 {
                     this.score.text = "Score: " + this.testObject.prog;
                     this.testObject.HandIn();
-                    config.Game.SCENE = scenes.State.PLAY;
+                    config.Game.SCENE = scenes.State.STAGE2;
                 }
             }  
              
