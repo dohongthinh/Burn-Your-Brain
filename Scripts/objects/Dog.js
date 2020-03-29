@@ -23,6 +23,14 @@ var objects;
             _this.Start();
             return _this;
         }
+        Object.defineProperty(Dog.prototype, "barkSound", {
+            // readonly property
+            get: function () {
+                return this._barkSound;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // PRIVATE LIFE CYCLE METHODS
         Dog.prototype._checkBounds = function () {
             if (this.x > 640 - this.halfWidth) {
@@ -55,6 +63,9 @@ var objects;
         Dog.prototype.Start = function () {
             this.regX = this.halfWidth;
             this.regY = this.halfHeight;
+            this._barkSound = createjs.Sound.play("barking");
+            this._barkSound.volume = 0.25;
+            this._barkSound.loop = -1;
         };
         Dog.prototype.Update = function () {
             //this._checkBounds();

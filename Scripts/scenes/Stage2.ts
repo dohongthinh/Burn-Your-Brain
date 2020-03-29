@@ -60,6 +60,7 @@ module scenes
             managers.Collision.AABBCheck(this.player1,this.dog1)
             if(managers.Collision.AABBCheck(this.player1,this.dog1))
             {
+                this.dog1.barkSound.stop();
                 console.log("go to end scene");
                 config.Game.SCENE = scenes.State.END
             }
@@ -97,12 +98,20 @@ module scenes
                 if(count <1)
                 {// timer ends, do something here (e.g. next scene.)
                     //TODO: next scene (gameover)
+                    this.Clean();
                     window.clearInterval(interval);
                 }
             }, 1000);
             //this._startButton.on("click", ()=>{
                 //config.Game.SCENE = scenes.State.PLAY;
             //});
+
+        }
+        //clear the stage
+        public Clean() : void{
+            
+            this.dog1.barkSound.stop();
+            this.removeAllChildren();
 
         }
 

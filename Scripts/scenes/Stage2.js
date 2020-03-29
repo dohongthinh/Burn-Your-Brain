@@ -50,6 +50,7 @@ var scenes;
             }
             managers.Collision.AABBCheck(this.player1, this.dog1);
             if (managers.Collision.AABBCheck(this.player1, this.dog1)) {
+                this.dog1.barkSound.stop();
                 console.log("go to end scene");
                 config.Game.SCENE = scenes.State.END;
             }
@@ -78,12 +79,18 @@ var scenes;
                 _this.timerLabel.text = ("Time left: " + _this.timer.getMinutes + "m " + _this.timer.getSeconds + "s");
                 if (count < 1) { // timer ends, do something here (e.g. next scene.)
                     //TODO: next scene (gameover)
+                    _this.Clean();
                     window.clearInterval(interval);
                 }
             }, 1000);
             //this._startButton.on("click", ()=>{
             //config.Game.SCENE = scenes.State.PLAY;
             //});
+        };
+        //clear the stage
+        Stage2.prototype.Clean = function () {
+            this.dog1.barkSound.stop();
+            this.removeAllChildren();
         };
         return Stage2;
     }(objects.Scene));
