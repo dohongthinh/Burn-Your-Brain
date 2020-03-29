@@ -52,6 +52,7 @@ var scenes;
             this.player1.Update();
             this.testObject.Update();
             this.table1.Update();
+            //this.timer.Update();
         };
         Stage1.prototype.Main = function () {
             var _this = this;
@@ -69,9 +70,10 @@ var scenes;
             var interval = window.setInterval(function () {
                 count = _this.timer.Update();
                 _this.timerLabel.text = ("Time left: " + _this.timer.getMinutes + "m " + _this.timer.getSeconds + "s");
-                if (count < 1) { // timer ends, do something here (e.g. next scene.)
+                if (count < 1 || config.Game.SCENE != scenes.State.STAGE1) { // timer ends, do something here (e.g. next scene.)
                     //TODO: next scene (gameover)
                     window.clearInterval(interval);
+                    console.log("clearInterval");
                 }
             }, 1000);
         };

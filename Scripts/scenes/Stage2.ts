@@ -55,6 +55,7 @@ module scenes
                     config.Game.SCORE += this.testObject.prog;
                     this.score.text = "Score: " + config.Game.SCORE;
                     this.testObject.HandIn();
+                    config.Game.SCENE = scenes.State.END;
                 }
             }  
              
@@ -96,16 +97,13 @@ module scenes
             {
                 count = this.timer.Update(); 
                 this.timerLabel.text = ("Time left: " + this.timer.getMinutes+ "m " + this.timer.getSeconds + "s");
-                if(count <1)
+                if(count <1 || config.Game.SCENE != scenes.State.STAGE2)
                 {// timer ends, do something here (e.g. next scene.)
                     //TODO: next scene (gameover)
                     this.Clean();
                     window.clearInterval(interval);
                 }
             }, 1000);
-            //this._startButton.on("click", ()=>{
-                //config.Game.SCENE = scenes.State.PLAY;
-            //});
 
         }
         //clear the stage

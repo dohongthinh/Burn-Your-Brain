@@ -61,6 +61,7 @@ module scenes
             this.player1.Update();
             this.testObject.Update();
             this.table1.Update();
+            //this.timer.Update();
             
         }
         
@@ -85,10 +86,11 @@ module scenes
             {
                 count = this.timer.Update(); 
                 this.timerLabel.text = ("Time left: " + this.timer.getMinutes+ "m " + this.timer.getSeconds + "s");
-                if(count <1)
+                if(count <1 || config.Game.SCENE != scenes.State.STAGE1 )
                 {// timer ends, do something here (e.g. next scene.)
                     //TODO: next scene (gameover)
                     window.clearInterval(interval);
+                    console.log("clearInterval")
                 }
             }, 1000);
 

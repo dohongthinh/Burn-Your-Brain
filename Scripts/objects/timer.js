@@ -22,7 +22,7 @@ var objects;
             console.log("Time left: " + this.minutes + "m " + this.seconds + "s ");
             if (this.seconds == 0) {
                 console.log("go to end scene");
-                //config.Game.SCENE = scenes.State.END
+                config.Game.SCENE = scenes.State.END;
             }
             return this.timeLeft;
         };

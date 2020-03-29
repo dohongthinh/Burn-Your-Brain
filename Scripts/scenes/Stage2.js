@@ -47,6 +47,7 @@ var scenes;
                     config.Game.SCORE += this.testObject.prog;
                     this.score.text = "Score: " + config.Game.SCORE;
                     this.testObject.HandIn();
+                    config.Game.SCENE = scenes.State.END;
                 }
             }
             managers.Collision.AABBCheck(this.player1, this.dog1);
@@ -78,15 +79,12 @@ var scenes;
             var interval = window.setInterval(function () {
                 count = _this.timer.Update();
                 _this.timerLabel.text = ("Time left: " + _this.timer.getMinutes + "m " + _this.timer.getSeconds + "s");
-                if (count < 1) { // timer ends, do something here (e.g. next scene.)
+                if (count < 1 || config.Game.SCENE != scenes.State.STAGE2) { // timer ends, do something here (e.g. next scene.)
                     //TODO: next scene (gameover)
                     _this.Clean();
                     window.clearInterval(interval);
                 }
             }, 1000);
-            //this._startButton.on("click", ()=>{
-            //config.Game.SCENE = scenes.State.PLAY;
-            //});
         };
         //clear the stage
         Stage2.prototype.Clean = function () {
