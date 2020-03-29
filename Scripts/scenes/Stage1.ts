@@ -31,7 +31,7 @@ module scenes
             this.test2 = new createjs.Bitmap("./Assets/Images/openNotebook.png");
             this.testObject = new objects.classroomItem("./Assets/Images/openNotebook.png", 470, 240, true, this.test, this.test2);
             this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 50, 240, true);
-            this.player2 = new objects.Character("./Assets/Images/Char2/tile000.png",100,150,true);
+            this.player2 = new objects.Character("./Assets/Images/Pro000.png",100,150,true);
             this.score = new objects.Label("Score:","20px", "Arial", "#000000", 15,30,false);
             this.table1 = new objects.classroomObstacle("./Assets/Images/small_square_table.png",300,200,true);
             //start timer
