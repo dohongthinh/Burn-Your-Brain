@@ -7,6 +7,7 @@ module managers {
         public static moveRight: boolean = false;
         public static yeet: boolean = false;
         public static something: boolean = false;
+        public static playWrite: boolean = true;
 
         public static Start() {
             document.addEventListener('keydown', this.onKeyDown.bind(this), false);

@@ -22,6 +22,7 @@ var scenes;
             var _this = _super.call(this) || this;
             // initialization
             _this.endLabel = new objects.Label();
+            _this.scoreBoardLabel = new objects.Label();
             _this.backButton = new objects.Button();
             _this.Start();
             return _this;
@@ -31,16 +32,17 @@ var scenes;
         End.prototype.Start = function () {
             //instantiate a new Text object
             this.endLabel = new objects.Label("Your Score: " + config.Game.SCORE, "70px", "Consolas", "#000000", 320, 180, true);
-            // buttons
             this.backButton = new objects.Button('./Assets/images/backButton.png', 320, 430, true);
             this.Main();
         };
         End.prototype.Update = function () {
         };
         End.prototype.Main = function () {
+            this.addChild(this.scoreBoardLabel);
             this.addChild(this.endLabel);
             this.addChild(this.backButton);
             this.backButton.on("click", function () {
+                config.Game.SCORE = 0;
                 config.Game.SCENE = scenes.State.START;
                 config.Game.SCENE = 0;
             });

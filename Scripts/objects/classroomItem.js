@@ -40,6 +40,13 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(classroomItem.prototype, "submitSound", {
+            get: function () {
+                return this._writeSound;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(classroomItem.prototype, "dx", {
             get: function () {
                 return this._dx;
@@ -77,6 +84,9 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        classroomItem.prototype.getRandomInt = function (max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        };
         classroomItem.prototype._checkBounds = function () {
             if (this.state != objects.ObjectState.PICKED_UP) {
                 // checks the right boundary
@@ -122,10 +132,9 @@ var objects;
                     this.y += this.dy * this._speed;
                     break;
                 case objects.ObjectState.HANDED_IN:
-                    this.x = 9999;
-                    this.y = 9999;
-                    this.scaleX = 0;
-                    this.scaleY = 0;
+                    this._submitSound = createjs.Sound.play("submit");
+                    this._submitSound.volume = 0.25;
+                    this.Reset();
                     break;
             }
             this.Interact();
@@ -143,6 +152,16 @@ var objects;
             this.state = objects.ObjectState.HANDED_IN;
         };
         classroomItem.prototype.Reset = function () {
+            this.x = this.getRandomInt(640);
+            this.y = this.getRandomInt(400);
+            this._prog = 0;
+            this._dx = 0;
+            this._dy = 0;
+            this._state = objects.ObjectState.NORMAL;
+            this._progLabel = new createjs.Text("", "", "white");
+            config.Game.STAGE.addChild(this._progLabel);
+            config.Game.PLAYER.isHoldingItem = false;
+            managers.Input.pickUp = false;
         };
         classroomItem.prototype.Interact = function () {
             //pick up / put down object
@@ -168,8 +187,24 @@ var objects;
             }
             if (managers.Input.something && this.isColliding) {
                 if (this._prog < 100) {
+                    if (managers.Input.playWrite) {
+                        this._writeSound = createjs.Sound.play("writing");
+                        //this._writeSound.paused = false;
+                        this._writeSound.volume = 0.25;
+                    }
+                    managers.Input.playWrite = false;
                     this._prog += 1;
                     this._progLabel.text = this._prog.toFixed(2) + "%";
+                    if (this._prog == 100) {
+                        this._writeSound.stop();
+                        managers.Input.playWrite = true;
+                    }
+                }
+            }
+            else if (!managers.Input.something && this.isColliding) {
+                if (this._writeSound != null) {
+                    this._writeSound.paused = true;
+                    managers.Input.playWrite = true;
                 }
             }
         };
