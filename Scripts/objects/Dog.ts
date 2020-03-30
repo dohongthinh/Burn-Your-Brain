@@ -4,6 +4,9 @@ module objects
     {
         // PRIVATE INSTANCE MEMBERS
         private _barkSound : createjs.AbstractSoundInstance;
+        private _dy:number = 1;
+        private _dx:number = 1;
+        _speed: number= 3;
 
         // readonly property
         public get barkSound(): createjs.AbstractSoundInstance{
@@ -17,36 +20,69 @@ module objects
 
         }
 
-        private dy = 3;
+        //PUBLIC
+        get dy():number
+        {
+            return this._dy;
+        }
+
+        set dy(newDy:number)
+        {
+            this._dy = newDy;
+        }
+        get dx():number
+        {
+            return this._dx;
+        }
+
+        set dx(newDx:number)
+        {
+            this._dx = newDx;
+        }
+
+        get speed():number
+        {
+            return this._speed;
+        }
+
+        set speed(newSpeed:number)
+        {
+            this._speed = newSpeed;
+        }
 
         // PRIVATE LIFE CYCLE METHODS
         protected _checkBounds(): void {
             if(this.x > 640 - this.halfWidth) {
-                this.x = 640 - this.halfWidth;
+                this.dx = -1 * this.speed;
             }
 
             // check the left boundary
             if(this.x < this.halfWidth) {
-                this.x = this.halfWidth;
+                this.dx = 1 * this.speed;
             }
             // checks the bot boundary
             if(this.y > 480 - this.halfHeight) {
-                this.y = 480 - this.halfHeight;
-                this.dy = -3;
+                this.dy = -1 * this.speed;
             }
 
             // check the top boundary
             if(this.y < this.halfHeight + 80) {
-                this.y = this.halfHeight + 80;
-                this.dy = 3;
+                this.dy = 1 * this.speed;
             }
         }
 
-        protected _Run():void{
-            this.y += this.dy;
-        }
         // PUBLIC LIFE CYCLE METHODS
 
+        public _RunVertical():void{
+            this.y += this._dy;
+        }
+        public _RunHorizontal():void{
+            this.x += this._dx;
+        }
+        public _Stop():void{
+            this._dx=0;
+            this._dy=0;
+        }
         /**
          * Initialization happens here
          *
@@ -64,7 +100,6 @@ module objects
         public Update():void
         {
             //this._checkBounds();
-            this._Run();
             this._checkBounds();
             this._updatePosition();
         }
