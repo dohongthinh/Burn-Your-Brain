@@ -30,7 +30,7 @@ var scenes;
         // PUBLIC METHODS
         End.prototype.Start = function () {
             //instantiate a new Text object
-            this.endLabel = new objects.Label("You Score: " + config.Game.SCORE, "70px", "Consolas", "#000000", 320, 180, true);
+            this.endLabel = new objects.Label("Your Score: " + config.Game.SCORE, "70px", "Consolas", "#000000", 320, 180, true);
             // buttons
             this.backButton = new objects.Button('./Assets/images/backButton.png', 320, 430, true);
             this.Main();
@@ -42,6 +42,7 @@ var scenes;
             this.addChild(this.backButton);
             this.backButton.on("click", function () {
                 config.Game.SCENE = scenes.State.START;
+                config.Game.SCENE = 0;
             });
         };
         return End;
