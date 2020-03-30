@@ -23,7 +23,7 @@ module objects {
             this.minutes = Math.floor((this.timeLeft % (1000 * 60 * 60)) / (1000 * 60));
             this.seconds = Math.floor((this.timeLeft % (1000 * 60)) / 1000);
 
-            console.log("Time left: " + this.minutes + "m " + this.seconds + "s ");
+            //console.log("Time left: " + this.minutes + "m " + this.seconds + "s ");
             if(this.seconds == 0)
             {
                 console.log("go to end scene");

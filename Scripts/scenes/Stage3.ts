@@ -51,7 +51,7 @@ module scenes
             this.table4 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png",500,320,true);         
             this.table5 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png",500,440,true);
             //start timer
-            this.timer = new objects.timer(30); //time in seconds
+            this.timer = new objects.timer(46); //time in seconds
             this.timerLabel = new objects.Label("Time left: ", "20px", "Arial", "#000000", 15 , 10, false);
             this.dog1.speed = 3;
             this.dog2.speed = 5;
@@ -72,13 +72,13 @@ module scenes
             }   
             if(managers.Collision.AABBCheck(this.player1,this.dog1))
             {
-                this.dog1.barkSound.stop();
+                this.Clean();
                 console.log("go to end scene");
                 config.Game.SCENE = scenes.State.END
             }
             if(managers.Collision.AABBCheck(this.player1,this.dog2))
             {
-                this.dog2.barkSound.stop();
+                this.Clean();
                 console.log("go to end scene");
                 config.Game.SCENE = scenes.State.END
             }
