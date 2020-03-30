@@ -40,13 +40,12 @@ var scenes;
             this.table5 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 500, 280, true);
             this.table6 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 500, 410, true);
             //start timer
-            this.timer = new objects.timer(46); //time in seconds
+            this.timer = new objects.timer(45); //time in seconds
             this.timerLabel = new objects.Label("Time left: ", "20px", "Arial", "#000000", 15, 10, false);
             config.Game.PLAYER = this.player1;
             this.Main();
         };
         Stage2.prototype.Update = function () {
-            managers.Collision.AABBCheck(this.testObject, this.player2);
             if (managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject, this.player2)) {
                 console.log(this.testObject.prog);
                 if (this.testObject.prog >= 50) {
@@ -56,14 +55,22 @@ var scenes;
                     //config.Game.SCENE = scenes.State.END;
                 }
             }
-            managers.Collision.AABBCheck(this.player1, this.dog1);
             if (managers.Collision.AABBCheck(this.player1, this.dog1)) {
                 this.dog1.barkSound.stop();
+                this.dog2.barkSound.stop();
+                console.log("go to end scene");
+                config.Game.SCENE = scenes.State.END;
+            }
+            if (managers.Collision.AABBCheck(this.player1, this.dog2)) {
+                this.dog1.barkSound.stop();
+                this.dog2.barkSound.stop();
                 console.log("go to end scene");
                 config.Game.SCENE = scenes.State.END;
             }
             this.player1.Update();
             this.testObject.Update();
+            this.dog1._RunVertical();
+            this.dog2._RunVertical();
             this.dog1.Update();
             this.dog2.Update();
             this.table1.Update();
@@ -97,10 +104,13 @@ var scenes;
             var interval = window.setInterval(function () {
                 count = _this.timer.Update();
                 _this.timerLabel.text = ("Time left: " + _this.timer.getMinutes + "m " + _this.timer.getSeconds + "s");
-                if (count < 1 || config.Game.SCENE != scenes.State.STAGE2) { // timer ends, do something here (e.g. next scene.)
+                if (count < 1) { // timer ends, do something here (e.g. next scene.)
                     //TODO: next scene (gameover)
                     _this.Clean();
                     window.clearInterval(interval);
+                    if (config.Game.SCORE >= 600) {
+                        config.Game.SCENE = scenes.State.STAGE3;
+                    }
                 }
             }, 1000);
         };

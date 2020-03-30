@@ -67,27 +67,27 @@ var objects;
         // PRIVATE LIFE CYCLE METHODS
         Dog.prototype._checkBounds = function () {
             if (this.x > 640 - this.halfWidth) {
-                this.dx = -1 * this.speed;
+                this.dx = -1;
             }
             // check the left boundary
             if (this.x < this.halfWidth) {
-                this.dx = 1 * this.speed;
+                this.dx = 1;
             }
             // checks the bot boundary
             if (this.y > 480 - this.halfHeight) {
-                this.dy = -1 * this.speed;
+                this.dy = -1;
             }
             // check the top boundary
             if (this.y < this.halfHeight + 80) {
-                this.dy = 1 * this.speed;
+                this.dy = 1;
             }
         };
         // PUBLIC LIFE CYCLE METHODS
         Dog.prototype._RunVertical = function () {
-            this.y += this._dy;
+            this.y += this._dy * this._speed;
         };
         Dog.prototype._RunHorizontal = function () {
-            this.x += this._dx;
+            this.x += this._dx * this._speed;
         };
         Dog.prototype._Stop = function () {
             this._dx = 0;

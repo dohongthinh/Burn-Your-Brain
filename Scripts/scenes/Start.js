@@ -35,10 +35,12 @@ var scenes;
         Start.prototype.Update = function () {
         };
         Start.prototype.Main = function () {
+            console.log("%cMovement: WASD, Pick Up/ Put Down: E, Do Assignment: F, Throw: Spacebar", "color: blue; font-size: 18px;");
+            console.log("%cHand in assignment to the professor using E", "color: black; font-size: 12px;");
             this.addChild(this._welcomeLabel);
             this.addChild(this._startButton);
             this._startButton.on("click", function () {
-                config.Game.SCENE = scenes.State.STAGE1;
+                config.Game.SCENE = scenes.State.STAGE3;
             });
         };
         return Start;

@@ -44,7 +44,7 @@ var scenes;
             this.table11 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 500, 235, true);
             this.table12 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 500, 365, true);
             //start timer
-            this.timer = new objects.timer(46); //time in seconds
+            this.timer = new objects.timer(45); //time in seconds
             this.timerLabel = new objects.Label("Time left: ", "20px", "Arial", "#000000", 15, 10, false);
             config.Game.PLAYER = this.player1;
             this.Main();
@@ -75,8 +75,6 @@ var scenes;
         };
         Stage1.prototype.Main = function () {
             var _this = this;
-            console.log("%cMovement: WASD, Pick Up/ Put Down: E, Do Assignment / Submit: F, Throw: Spacebar", "color: blue; font-size: 18px;");
-            console.log("%cHand in assignment to the professor using E", "color: black; font-size: 12px;");
             //objects
             this.addChild(this.testObject);
             this.addChild(this.table1);
@@ -107,8 +105,9 @@ var scenes;
                     managers.Input.playWrite = true;
                     window.clearInterval(interval);
                     console.log("clearInterval");
-                    if (config.Game.SCORE >= 100)
+                    if (config.Game.SCORE >= 100) {
                         config.Game.SCENE = scenes.State.STAGE2;
+                    }
                 }
             }, 1000);
         };

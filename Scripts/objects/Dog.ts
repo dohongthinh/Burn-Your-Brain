@@ -53,31 +53,31 @@ module objects
         // PRIVATE LIFE CYCLE METHODS
         protected _checkBounds(): void {
             if(this.x > 640 - this.halfWidth) {
-                this.dx = -1 * this.speed;
+                this.dx = -1;
             }
 
             // check the left boundary
             if(this.x < this.halfWidth) {
-                this.dx = 1 * this.speed;
+                this.dx = 1;
             }
             // checks the bot boundary
             if(this.y > 480 - this.halfHeight) {
-                this.dy = -1 * this.speed;
+                this.dy = -1;
             }
 
             // check the top boundary
             if(this.y < this.halfHeight + 80) {
-                this.dy = 1 * this.speed;
+                this.dy = 1;
             }
         }
 
         // PUBLIC LIFE CYCLE METHODS
 
         public _RunVertical():void{
-            this.y += this._dy;
+            this.y += this._dy * this._speed;
         }
         public _RunHorizontal():void{
-            this.x += this._dx;
+            this.x += this._dx * this._speed;
         }
         public _Stop():void{
             this._dx=0;

@@ -1,22 +1,11 @@
 module objects{
-    export class classroomItem extends objects.GameObject{
-        private _normal:createjs.Bitmap;
-        private _pickedUp:createjs.Bitmap;
+    export class Biscuit extends objects.GameObject{
         private _progLabel:createjs.Text;
         private _dx:number = 0;
         private _dy:number = 0;
         private _speed:number = 2;
-        private _prog:number = 0;
         private _state:ObjectState;
-        private _writeSound: createjs.AbstractSoundInstance;
-        private _submitSound: createjs.AbstractSoundInstance;
 
-        public get writeSound(): createjs.AbstractSoundInstance{
-            return this._writeSound;
-        }
-        public get submitSound(): createjs.AbstractSoundInstance{
-            return this._writeSound;
-        }
         get dx()
         {
             return this._dx;
@@ -24,10 +13,6 @@ module objects{
         set dx(newDx:number)
         {
             this._dx = newDx;
-        }
-        get prog()
-        {
-            return this._prog;
         }
         get dy()
         {
@@ -83,11 +68,9 @@ module objects{
             switch(this.state)
             {
                 case ObjectState.NORMAL:
-                    this.image = this._normal.image;
                     break;
 
                 case ObjectState.PICKED_UP:
-                    this.image = this._pickedUp.image;
                     this.dx = Math.cos(config.Game.PLAYER.dir);
                     this.dy = Math.sin(config.Game.PLAYER.dir);
                     this.x = config.Game.PLAYER.x + this.dx * 40;
@@ -100,23 +83,11 @@ module objects{
                     this.x += this.dx * this._speed;
                     this.y += this.dy * this._speed;
                     break;
-                
-                case ObjectState.HANDED_IN:
-                    this._submitSound = createjs.Sound.play("submit");
-                    this._submitSound.volume = 0.25;
-                    this.Reset();
-                    break;
             }
             
             this.Interact();
             this._checkBounds();
             managers.Collision.squaredRadiusCheck(config.Game.PLAYER, this);
-            this._progLabel.x = this.x;
-            this._progLabel.y = this.y -80;
-            if (this._prog == 100)
-            {
-                this.rotation += 0.5;
-            }
             this._updatePosition();
         }
         
@@ -127,32 +98,27 @@ module objects{
         public Reset(): void {
             this.x = this.getRandomInt(640);
             this.y = this.getRandomInt(400);
-            this._prog = 0;
             this._dx = 0;
             this._dy = 0;
             this._state = ObjectState.NORMAL;
-            this._progLabel = new createjs.Text("","","white");
             config.Game.STAGE.addChild(this._progLabel)
             config.Game.PLAYER.isHoldingItem = false;
             managers.Input.pickUp = false;
         }
         //constructor
-        constructor(imagePath:string, x:number, y:number, isCentered:boolean = true, normal:createjs.Bitmap, pickedUp:createjs.Bitmap){
+        constructor(imagePath:string, x:number, y:number, isCentered:boolean = true){
             super(imagePath,x,y,isCentered);
             this.x = x;
             this.y = y;
             this._state = ObjectState.NORMAL;
-            this._progLabel = new createjs.Text("","","white");
             config.Game.STAGE.addChild(this._progLabel)
-            this._normal = normal;
-            this._pickedUp = pickedUp;
         }
         public Interact(): void
         {
             //pick up / put down object
             if(managers.Input.pickUp)
             {
-                if(this.isColliding && this.state != ObjectState.PICKED_UP && !config.Game.PLAYER.isHoldingItem && this._prog > 50)
+                if(this.isColliding && this.state != ObjectState.PICKED_UP && !config.Game.PLAYER.isHoldingItem)
                 {
                     this.state = ObjectState.PICKED_UP;
                     config.Game.PLAYER.isHoldingItem = true;
@@ -175,30 +141,6 @@ module objects{
                     config.Game.PLAYER.isHoldingItem = false;
                 }
             }
-            if(managers.Input.something && this.isColliding)
-            {
-                if(this._prog <100)
-                {
-                    if (managers.Input.playWrite){
-                        this._writeSound = createjs.Sound.play("writing");
-                        this._writeSound.volume = 0.25;
-                    }
-                    managers.Input.playWrite = false;
-                    this._prog +=1;
-                    this._progLabel.text = this._prog.toFixed(2) +"%"
-                    if (this._prog == 100){
-                        this._writeSound.stop();
-                        managers.Input.playWrite = true;
-                    }
-                }
-                
-            } else if (!managers.Input.something && this.isColliding) {
-                if (this._writeSound != null){
-                    this._writeSound.paused = true;
-                    managers.Input.playWrite = true;
-                }
-            }
-            
         }
     }
 }

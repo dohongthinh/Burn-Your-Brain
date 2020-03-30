@@ -14,40 +14,22 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var classroomItem = /** @class */ (function (_super) {
-        __extends(classroomItem, _super);
+    var Biscuit = /** @class */ (function (_super) {
+        __extends(Biscuit, _super);
         //constructor
-        function classroomItem(imagePath, x, y, isCentered, normal, pickedUp) {
+        function Biscuit(imagePath, x, y, isCentered) {
             if (isCentered === void 0) { isCentered = true; }
             var _this = _super.call(this, imagePath, x, y, isCentered) || this;
             _this._dx = 0;
             _this._dy = 0;
             _this._speed = 2;
-            _this._prog = 0;
             _this.x = x;
             _this.y = y;
             _this._state = objects.ObjectState.NORMAL;
-            _this._progLabel = new createjs.Text("", "", "white");
             config.Game.STAGE.addChild(_this._progLabel);
-            _this._normal = normal;
-            _this._pickedUp = pickedUp;
             return _this;
         }
-        Object.defineProperty(classroomItem.prototype, "writeSound", {
-            get: function () {
-                return this._writeSound;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(classroomItem.prototype, "submitSound", {
-            get: function () {
-                return this._writeSound;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(classroomItem.prototype, "dx", {
+        Object.defineProperty(Biscuit.prototype, "dx", {
             get: function () {
                 return this._dx;
             },
@@ -57,14 +39,7 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(classroomItem.prototype, "prog", {
-            get: function () {
-                return this._prog;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(classroomItem.prototype, "dy", {
+        Object.defineProperty(Biscuit.prototype, "dy", {
             get: function () {
                 return this._dy;
             },
@@ -74,7 +49,7 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(classroomItem.prototype, "state", {
+        Object.defineProperty(Biscuit.prototype, "state", {
             get: function () {
                 return this._state;
             },
@@ -84,10 +59,10 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        classroomItem.prototype.getRandomInt = function (max) {
+        Biscuit.prototype.getRandomInt = function (max) {
             return Math.floor(Math.random() * Math.floor(max));
         };
-        classroomItem.prototype._checkBounds = function () {
+        Biscuit.prototype._checkBounds = function () {
             if (this.state != objects.ObjectState.PICKED_UP) {
                 // checks the right boundary
                 if (this.x > 640 - this.halfWidth) {
@@ -111,15 +86,13 @@ var objects;
                 }
             }
         };
-        classroomItem.prototype.Start = function () {
+        Biscuit.prototype.Start = function () {
         };
-        classroomItem.prototype.Update = function () {
+        Biscuit.prototype.Update = function () {
             switch (this.state) {
                 case objects.ObjectState.NORMAL:
-                    this.image = this._normal.image;
                     break;
                 case objects.ObjectState.PICKED_UP:
-                    this.image = this._pickedUp.image;
                     this.dx = Math.cos(config.Game.PLAYER.dir);
                     this.dy = Math.sin(config.Game.PLAYER.dir);
                     this.x = config.Game.PLAYER.x + this.dx * 40;
@@ -131,42 +104,30 @@ var objects;
                     this.x += this.dx * this._speed;
                     this.y += this.dy * this._speed;
                     break;
-                case objects.ObjectState.HANDED_IN:
-                    this._submitSound = createjs.Sound.play("submit");
-                    this._submitSound.volume = 0.25;
-                    this.Reset();
-                    break;
             }
             this.Interact();
             this._checkBounds();
             managers.Collision.squaredRadiusCheck(config.Game.PLAYER, this);
-            this._progLabel.x = this.x;
-            this._progLabel.y = this.y - 80;
-            if (this._prog == 100) {
-                this.rotation += 0.5;
-            }
             this._updatePosition();
         };
-        classroomItem.prototype.HandIn = function () {
+        Biscuit.prototype.HandIn = function () {
             config.Game.STAGE.removeChild(this._progLabel);
             this.state = objects.ObjectState.HANDED_IN;
         };
-        classroomItem.prototype.Reset = function () {
+        Biscuit.prototype.Reset = function () {
             this.x = this.getRandomInt(640);
             this.y = this.getRandomInt(400);
-            this._prog = 0;
             this._dx = 0;
             this._dy = 0;
             this._state = objects.ObjectState.NORMAL;
-            this._progLabel = new createjs.Text("", "", "white");
             config.Game.STAGE.addChild(this._progLabel);
             config.Game.PLAYER.isHoldingItem = false;
             managers.Input.pickUp = false;
         };
-        classroomItem.prototype.Interact = function () {
+        Biscuit.prototype.Interact = function () {
             //pick up / put down object
             if (managers.Input.pickUp) {
-                if (this.isColliding && this.state != objects.ObjectState.PICKED_UP && !config.Game.PLAYER.isHoldingItem && this._prog > 50) {
+                if (this.isColliding && this.state != objects.ObjectState.PICKED_UP && !config.Game.PLAYER.isHoldingItem) {
                     this.state = objects.ObjectState.PICKED_UP;
                     config.Game.PLAYER.isHoldingItem = true;
                     managers.Input.pickUp = false;
@@ -185,30 +146,9 @@ var objects;
                     config.Game.PLAYER.isHoldingItem = false;
                 }
             }
-            if (managers.Input.something && this.isColliding) {
-                if (this._prog < 100) {
-                    if (managers.Input.playWrite) {
-                        this._writeSound = createjs.Sound.play("writing");
-                        this._writeSound.volume = 0.25;
-                    }
-                    managers.Input.playWrite = false;
-                    this._prog += 1;
-                    this._progLabel.text = this._prog.toFixed(2) + "%";
-                    if (this._prog == 100) {
-                        this._writeSound.stop();
-                        managers.Input.playWrite = true;
-                    }
-                }
-            }
-            else if (!managers.Input.something && this.isColliding) {
-                if (this._writeSound != null) {
-                    this._writeSound.paused = true;
-                    managers.Input.playWrite = true;
-                }
-            }
         };
-        return classroomItem;
+        return Biscuit;
     }(objects.GameObject));
-    objects.classroomItem = classroomItem;
+    objects.Biscuit = Biscuit;
 })(objects || (objects = {}));
-//# sourceMappingURL=classroomItem.js.map
+//# sourceMappingURL=Biscuit.js.map

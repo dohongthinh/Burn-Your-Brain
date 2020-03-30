@@ -20,8 +20,9 @@ var objects;
         function Computer(imagePath, x, y, isCentered) {
             var _this = _super.call(this, imagePath, x, y, isCentered) || this;
             _this._prog = 0;
+            _this._complete = false;
             _this.Start();
-            _this._progLabel = new createjs.Text("help", "", "white");
+            _this._progLabel = new createjs.Text("Finish lab assignment for 1000 pts", "", "white");
             config.Game.STAGE.addChild(_this._progLabel);
             return _this;
         }
@@ -64,6 +65,12 @@ var objects;
                     if (this._prog < 100) {
                         this._prog += 0.25;
                         this._progLabel.text = this._prog.toFixed(2) + "%";
+                    }
+                    else if (this._prog = 100) {
+                        if (!this._complete) {
+                            config.Game.SCORE += 1000;
+                            this._complete = true;
+                        }
                     }
                 }
                 if (player_right > object_left && managers.Input.moveRight) {

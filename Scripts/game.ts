@@ -78,6 +78,10 @@ let Game = (function(){
                 console.log("switch to Stage2 Scene");
                 currentScene = new scenes.Stage2(); 
                 break;
+            case scenes.State.STAGE3:
+                console.log("switch to Stage3 Scene");
+                currentScene = new scenes.Stage3(); 
+                break;
            
             case scenes.State.END:
                 console.log("switch to End Scene");
