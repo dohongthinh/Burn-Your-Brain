@@ -189,7 +189,6 @@ var objects;
                 if (this._prog < 100) {
                     if (managers.Input.playWrite) {
                         this._writeSound = createjs.Sound.play("writing");
-                        //this._writeSound.paused = false;
                         this._writeSound.volume = 0.25;
                     }
                     managers.Input.playWrite = false;
