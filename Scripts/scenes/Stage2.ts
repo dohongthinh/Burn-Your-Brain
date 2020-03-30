@@ -49,7 +49,7 @@ module scenes
             this.table5 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png",500,280,true);
             this.table6 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png",500,410,true);
             //start timer
-            this.timer = new objects.timer(21); //time in seconds
+            this.timer = new objects.timer(46); //time in seconds
             this.timerLabel = new objects.Label("Time left: ", "20px", "Arial", "#000000", 15 , 10, false);
 
             config.Game.PLAYER = this.player1;
