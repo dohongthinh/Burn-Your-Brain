@@ -25,9 +25,9 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Stage1.prototype.Start = function () {
-            this.test = new createjs.Bitmap("./Assets/Images/closedNotebook.png");
+            this.test = new createjs.Bitmap("./Assets/Images/openNotebook.png");
             this.test2 = new createjs.Bitmap("./Assets/Images/closedNotebook.png");
-            this.testObject = new objects.classroomItem("./Assets/Images/openNotebook.png", 600, 480, true, this.test, this.test2);
+            this.testObject = new objects.classroomItem("./Assets/Images/closedNotebook.png", 600, 480, true, this.test, this.test2);
             this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 50, 240, true);
             this.player2 = new objects.Character("./Assets/Images/Pro000.png", 100, 150, true);
             this.score = new objects.Label("Score: " + config.Game.SCORE, "20px", "Arial", "#000000", 15, 30, false);

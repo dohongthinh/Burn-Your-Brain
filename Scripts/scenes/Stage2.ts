@@ -34,7 +34,7 @@ module scenes
         // PUBLIC METHODS
         public Start(): void 
         {
-            this.test = new createjs.Bitmap("./Assets/Images/closedNotebook.png");
+            this.test = new createjs.Bitmap("./Assets/Images/openNotebook.png");
             this.test2 = new createjs.Bitmap("./Assets/Images/closedNotebook.png");
             this.testObject = new objects.classroomItem("./Assets/Images/openNotebook.png", 600, 500, true, this.test, this.test2);
             this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 50, 240, true);
@@ -134,6 +134,7 @@ module scenes
         //clear the stage
         public Clean() : void{
             this.dog1.barkSound.stop()
+            this.dog2.barkSound.stop();
             if (this.testObject.writeSound != null)
                 this.testObject.writeSound.stop();
             managers.Input.playWrite = true;
