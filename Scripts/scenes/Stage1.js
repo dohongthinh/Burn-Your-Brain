@@ -53,8 +53,8 @@ var scenes;
         };
         Stage1.prototype.Main = function () {
             var _this = this;
-            console.log("%cMovement: WASD, Pick Up/ Put Down: E, Do Assignment: F, Throw: Spacebar", "color: blue; font-size: 18px;");
-            console.log("%cHand in assignment at the table (only if assignment progress is > 50%)", "color: black; font-size: 12px;");
+            console.log("%cMovement: WASD, Pick Up/ Put Down: E, Do Assignment / Submit: F, Throw: Spacebar", "color: blue; font-size: 18px;");
+            console.log("%cHand in assignment to the professor using E", "color: black; font-size: 12px;");
             //objects
             this.addChild(this.testObject);
             this.addChild(this.table1);
@@ -69,9 +69,11 @@ var scenes;
                 _this.timerLabel.text = ("Time left: " + _this.timer.getMinutes + "m " + _this.timer.getSeconds + "s");
                 if (count < 1 || config.Game.SCENE != scenes.State.STAGE1) { // timer ends, do something here (e.g. next scene.)
                     //TODO: next scene (gameover)
+                    if (_this.testObject.writeSound != null)
+                        _this.testObject.writeSound.stop();
+                    managers.Input.playWrite = true;
                     window.clearInterval(interval);
                     console.log("clearInterval");
-                    _this.testObject.writeSound.stop();
                     if (config.Game.SCORE >= 100)
                         config.Game.SCENE = scenes.State.STAGE2;
                 }

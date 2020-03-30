@@ -24,7 +24,6 @@ var objects;
             _this._dy = 0;
             _this._speed = 2;
             _this._prog = 0;
-            _this._isSet = true;
             _this.x = x;
             _this.y = y;
             _this._state = objects.ObjectState.NORMAL;
@@ -35,6 +34,13 @@ var objects;
             return _this;
         }
         Object.defineProperty(classroomItem.prototype, "writeSound", {
+            get: function () {
+                return this._writeSound;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(classroomItem.prototype, "submitSound", {
             get: function () {
                 return this._writeSound;
             },
@@ -126,6 +132,8 @@ var objects;
                     this.y += this.dy * this._speed;
                     break;
                 case objects.ObjectState.HANDED_IN:
+                    this._submitSound = createjs.Sound.play("submit");
+                    this._submitSound.volume = 0.25;
                     this.Reset();
                     break;
             }
@@ -181,10 +189,10 @@ var objects;
                 if (this._prog < 100) {
                     if (managers.Input.playWrite) {
                         this._writeSound = createjs.Sound.play("writing");
-                        this._writeSound.paused = false;
+                        //this._writeSound.paused = false;
                         this._writeSound.volume = 0.25;
-                        managers.Input.playWrite = false;
                     }
+                    managers.Input.playWrite = false;
                     this._prog += 1;
                     this._progLabel.text = this._prog.toFixed(2) + "%";
                     if (this._prog == 100) {

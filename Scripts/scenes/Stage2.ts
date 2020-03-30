@@ -109,10 +109,11 @@ module scenes
         }
         //clear the stage
         public Clean() : void{
-            this.testObject.writeSound.stop();
-            this.dog1.barkSound.stop();
+            this.dog1.barkSound.stop()
+            if (this.testObject.writeSound != null)
+                this.testObject.writeSound.stop();
+            managers.Input.playWrite = true;
             this.removeAllChildren();
-
         }
 
         

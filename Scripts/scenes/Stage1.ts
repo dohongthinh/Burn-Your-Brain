@@ -63,8 +63,8 @@ module scenes
         
         public Main(): void 
         {
-            console.log(`%cMovement: WASD, Pick Up/ Put Down: E, Do Assignment: F, Throw: Spacebar`, "color: blue; font-size: 18px;");
-            console.log(`%cHand in assignment at the table (only if assignment progress is > 50%)`, "color: black; font-size: 12px;");
+            console.log(`%cMovement: WASD, Pick Up/ Put Down: E, Do Assignment / Submit: F, Throw: Spacebar`, "color: blue; font-size: 18px;");
+            console.log(`%cHand in assignment to the professor using E`, "color: black; font-size: 12px;");
         
             //objects
             this.addChild(this.testObject);
@@ -85,9 +85,12 @@ module scenes
                 if(count <1 || config.Game.SCENE != scenes.State.STAGE1 )
                 {// timer ends, do something here (e.g. next scene.)
                     //TODO: next scene (gameover)
+                    if (this.testObject.writeSound != null)
+                        this.testObject.writeSound.stop();
+                    managers.Input.playWrite = true;
                     window.clearInterval(interval);
                     console.log("clearInterval")
-                    this.testObject.writeSound.stop();
+
                     if (config.Game.SCORE >= 100)
                         config.Game.SCENE = scenes.State.STAGE2;
                 }

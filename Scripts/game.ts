@@ -11,7 +11,8 @@ let Game = (function(){
     let assetManifest = 
     [
         {id: "barking", src:"./Assets/Sounds/Barking.wav"},
-        {id: "writing", src:"./Assets/Sounds/Pencil Writing.wav"}
+        {id: "writing", src:"./Assets/Sounds/Pencil Writing.wav"},
+        {id: "submit", src:"./Assets/Sounds/Submit.mp3"}
     ];
 
     function Preload():void

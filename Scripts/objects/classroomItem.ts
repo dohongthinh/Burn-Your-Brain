@@ -9,9 +9,12 @@ module objects{
         private _prog:number = 0;
         private _state:ObjectState;
         private _writeSound: createjs.AbstractSoundInstance;
-        private _isSet:boolean = true;
+        private _submitSound: createjs.AbstractSoundInstance;
 
         public get writeSound(): createjs.AbstractSoundInstance{
+            return this._writeSound;
+        }
+        public get submitSound(): createjs.AbstractSoundInstance{
             return this._writeSound;
         }
         get dx()
@@ -99,6 +102,8 @@ module objects{
                     break;
                 
                 case ObjectState.HANDED_IN:
+                    this._submitSound = createjs.Sound.play("submit");
+                    this._submitSound.volume = 0.25;
                     this.Reset();
                     break;
             }
@@ -176,10 +181,10 @@ module objects{
                 {
                     if (managers.Input.playWrite){
                         this._writeSound = createjs.Sound.play("writing");
-                        this._writeSound.paused = false;
+                        //this._writeSound.paused = false;
                         this._writeSound.volume = 0.25;
-                        managers.Input.playWrite = false;
                     }
+                    managers.Input.playWrite = false;
                     this._prog +=1;
                     this._progLabel.text = this._prog.toFixed(2) +"%"
                     if (this._prog == 100){
