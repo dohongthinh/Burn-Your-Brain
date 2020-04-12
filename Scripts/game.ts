@@ -17,7 +17,7 @@ let Game = (function(){
         {id: "bookOpen", src:"./Assets/Images/openNotebook.png"},
         {id: "bookClosed", src:"./Assets/Images/closedNotebook.png"},
         {id: "table", src:"./Assets/Images/table.png"},
-        {id: "placeholder", src:"./Assets/Images/table.png"},
+        {id: "placeholder", src:"./Assets/Images/startButton.png"},
         {id: "player", src:"./Assets/Images/Char1/tile000.png"},
         {id: "dog", src:"./Assets/Images/Dog-L.png"},
         {id: "computer", src:"./Assets/Images/comp.png"},
