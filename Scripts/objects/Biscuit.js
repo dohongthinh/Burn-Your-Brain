@@ -26,7 +26,6 @@ var objects;
             _this.x = x;
             _this.y = y;
             _this._state = objects.ObjectState.NORMAL;
-            config.Game.STAGE.addChild(_this._progLabel);
             return _this;
         }
         Object.defineProperty(Biscuit.prototype, "dx", {
@@ -110,19 +109,13 @@ var objects;
             managers.Collision.squaredRadiusCheck(config.Game.PLAYER, this);
             this._updatePosition();
         };
-        Biscuit.prototype.HandIn = function () {
-            config.Game.STAGE.removeChild(this._progLabel);
-            this.state = objects.ObjectState.HANDED_IN;
-        };
         Biscuit.prototype.Reset = function () {
             this.x = this.getRandomInt(640);
             this.y = this.getRandomInt(400);
             this._dx = 0;
             this._dy = 0;
             this._state = objects.ObjectState.NORMAL;
-            config.Game.STAGE.addChild(this._progLabel);
             config.Game.PLAYER.isHoldingItem = false;
-            managers.Input.pickUp = false;
         };
         Biscuit.prototype.Interact = function () {
             //pick up / put down object

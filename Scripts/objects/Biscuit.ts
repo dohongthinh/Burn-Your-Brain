@@ -1,6 +1,5 @@
 module objects{
     export class Biscuit extends objects.GameObject{
-        private _progLabel:createjs.Text;
         private _dx:number = 0;
         private _dy:number = 0;
         private _speed:number = 2;
@@ -91,19 +90,13 @@ module objects{
             this._updatePosition();
         }
         
-        public HandIn(): void {
-            config.Game.STAGE.removeChild(this._progLabel)
-            this.state = ObjectState.HANDED_IN;
-        }
         public Reset(): void {
             this.x = this.getRandomInt(640);
             this.y = this.getRandomInt(400);
             this._dx = 0;
             this._dy = 0;
             this._state = ObjectState.NORMAL;
-            config.Game.STAGE.addChild(this._progLabel)
             config.Game.PLAYER.isHoldingItem = false;
-            managers.Input.pickUp = false;
         }
         //constructor
         constructor(image:Object, x:number, y:number, isCentered:boolean = true){
@@ -111,7 +104,6 @@ module objects{
             this.x = x;
             this.y = y;
             this._state = ObjectState.NORMAL;
-            config.Game.STAGE.addChild(this._progLabel)
         }
         public Interact(): void
         {

@@ -5,7 +5,7 @@ module scenes
 
         // PUBLIC PROPERTIES
         private player1:objects.Character;
-        private testObject:objects.classroomItem;
+        private assignment:objects.classroomItem;
         private player2:objects.Character;
         private timer:objects.timer;
         private timerLabel: objects.Label;
@@ -25,7 +25,7 @@ module scenes
         // PUBLIC METHODS
         public Start(): void 
         {
-            this.testObject = new objects.classroomItem(config.Game.ASSETS.getResult("bookOpen"), 600, 480, true);
+            this.assignment = new objects.classroomItem(config.Game.ASSETS.getResult("bookOpen"), 600, 480, true);
             this.player1 = new objects.Character(config.Game.ASSETS.getResult("player"), 50, 240, true);
             this.player2 = new objects.Character(config.Game.ASSETS.getResult("prof"),100,150,true);
             this.score = new objects.Label("Score: " + config.Game.SCORE,"20px", "Arial", "#000000", 15,30,false);
@@ -52,18 +52,18 @@ module scenes
         
         public Update(): void 
         {
-            managers.Collision.AABBCheck(this.testObject,this.player2)
-            if(managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject,this.player2))
+            managers.Collision.AABBCheck(this.assignment,this.player2)
+            if(managers.Input.pickUp && managers.Collision.AABBCheck(this.assignment,this.player2))
             {
-                console.log(this.testObject.prog);
-                config.Game.SCORE += this.testObject.prog;
+                console.log(this.assignment.prog);
+                config.Game.SCORE += this.assignment.prog;
                 this.score.text = "Score: " + config.Game.SCORE;
-                this.testObject.HandIn();
+                this.assignment.HandIn();
             }  
              
             
             this.player1.Update();
-            this.testObject.Update();
+            this.assignment.Update();
             this.tables.forEach(table => {
                 table.Update();
             });
@@ -74,7 +74,7 @@ module scenes
         public Main(): void 
         {
             //objects
-            this.addChild(this.testObject);
+            this.addChild(this.assignment);
             for (const table of this.tables) {
                 this.addChild(table);
             }
@@ -94,8 +94,8 @@ module scenes
                 if(/*count <1 ||*/ config.Game.SCENE != scenes.State.STAGE1 )
                 {// timer ends, do something here (e.g. next scene.)
                     //TODO: next scene (gameover)
-                    if (this.testObject.writeSound != null)
-                        this.testObject.writeSound.stop();
+                    if (this.assignment.writeSound != null)
+                        this.assignment.writeSound.stop();
                     managers.Input.playWrite = true;
                     window.clearInterval(interval);
                     console.log("clearInterval")

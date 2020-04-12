@@ -5,13 +5,12 @@ module scenes
 
         // PUBLIC PROPERTIES
         private player1:objects.Character;
-        private testObject:objects.classroomItem;
+        private assignment:objects.classroomItem;
         private player2:objects.Character;
         private timer:objects.timer;
         private timerLabel: objects.Label;
         private score:createjs.Text;
-        private dog1:objects.Dog;
-        private dog2:objects.Dog;
+        private dogs: Array<objects.Dog>;
         private tables: Array<objects.classroomObstacle>;
      
         // CONSTRUCTOR
@@ -27,12 +26,13 @@ module scenes
         // PUBLIC METHODS
         public Start(): void 
         {
-            this.testObject = new objects.classroomItem(config.Game.ASSETS.getResult("bookOpen"), 600, 500, true);
+            this.assignment = new objects.classroomItem(config.Game.ASSETS.getResult("bookOpen"), 600, 500, true);
             this.player1 = new objects.Character(config.Game.ASSETS.getResult("player"), 50, 240, true);
             this.player2 = new objects.Character(config.Game.ASSETS.getResult("prof"),100,150,true);
             this.score = new objects.Label("Score: " + config.Game.SCORE,"20px", "Arial", "#000000", 15,30,false);
-            this.dog1 = new objects.Dog(config.Game.ASSETS.getResult("dog"),200,40,true);
-            this.dog2 = new objects.Dog(config.Game.ASSETS.getResult("dog"),400,500,true);
+            this.dogs = new Array<objects.Dog>();
+            this.dogs[0] = new objects.Dog(config.Game.ASSETS.getResult("dog"),200,40,true);
+            this.dogs[1] = new objects.Dog(config.Game.ASSETS.getResult("dog"),400,500,true);
             this.tables = new Array<objects.classroomObstacle>();
             this.tables[0] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"),300,150,true);
             this.tables[1] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"),300,280,true);
@@ -50,37 +50,31 @@ module scenes
         
         public Update(): void 
         {
-            if(managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject,this.player2))
+            if(managers.Input.pickUp && managers.Collision.AABBCheck(this.assignment,this.player2))
             {
-                console.log(this.testObject.prog);
-                if(this.testObject.prog >= 50)
+                console.log(this.assignment.prog);
+                if(this.assignment.prog >= 50)
                 {
-                    config.Game.SCORE += this.testObject.prog;
+                    config.Game.SCORE += this.assignment.prog;
                     this.score.text = "Score: " + config.Game.SCORE;
-                    this.testObject.HandIn();
+                    this.assignment.HandIn();
                     //config.Game.SCENE = scenes.State.END;
                 }
             }  
              
-            if(managers.Collision.AABBCheck(this.player1,this.dog1))
-            {
-                this.Clean();
-                console.log("go to end scene");
-                config.Game.SCENE = scenes.State.END
-            }
-            if(managers.Collision.AABBCheck(this.player1,this.dog2))
-            {
-                this.Clean();
-                console.log("go to end scene");
-                config.Game.SCENE = scenes.State.END
-            }
+            this.dogs.forEach(dog => {
+                dog._RunVertical();
+                dog.Update();
+                if(managers.Collision.AABBCheck(this.player1,dog))
+                {
+                    this.Clean();
+                    console.log("go to end scene");
+                    config.Game.SCENE = scenes.State.END
+                }
+            });
             
             this.player1.Update();
-            this.testObject.Update();
-            this.dog1._RunVertical();
-            this.dog2._RunVertical();
-            this.dog1.Update();
-            this.dog2.Update();
+            this.assignment.Update();
             this.tables.forEach(table => {
                 table.Update();
             });
@@ -93,7 +87,7 @@ module scenes
             console.log(`%cHand in assignment at the table (only if assignment progress is > 50%)`, "color: black; font-size: 12px;");
         
             //objects
-            this.addChild(this.testObject);
+            this.addChild(this.assignment);
             for (const table of this.tables) {
                 this.addChild(table);
             }
@@ -102,9 +96,9 @@ module scenes
             this.addChild(this.player1);
             this.addChild(this.player2);
             //dog
-            this.addChild(this.dog1);
-            this.addChild(this.dog2);
-
+            for (const dog of this.dogs) {
+                this.addChild(dog);
+            }
             this.addChild(this.timerLabel);
             this.addChild(this.score);
 
@@ -128,10 +122,10 @@ module scenes
         }
         //clear the stage
         public Clean() : void{
-            this.dog1.barkSound.stop()
-            this.dog2.barkSound.stop();
-            if (this.testObject.writeSound != null)
-                this.testObject.writeSound.stop();
+            this.dogs[0].barkSound.stop()
+            this.dogs[1].barkSound.stop();
+            if (this.assignment.writeSound != null)
+                this.assignment.writeSound.stop();
             managers.Input.playWrite = true;
             this.removeAllChildren();
         }

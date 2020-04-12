@@ -25,7 +25,7 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Stage1.prototype.Start = function () {
-            this.testObject = new objects.classroomItem(config.Game.ASSETS.getResult("bookOpen"), 600, 480, true);
+            this.assignment = new objects.classroomItem(config.Game.ASSETS.getResult("bookOpen"), 600, 480, true);
             this.player1 = new objects.Character(config.Game.ASSETS.getResult("player"), 50, 240, true);
             this.player2 = new objects.Character(config.Game.ASSETS.getResult("prof"), 100, 150, true);
             this.score = new objects.Label("Score: " + config.Game.SCORE, "20px", "Arial", "#000000", 15, 30, false);
@@ -49,15 +49,15 @@ var scenes;
             this.Main();
         };
         Stage1.prototype.Update = function () {
-            managers.Collision.AABBCheck(this.testObject, this.player2);
-            if (managers.Input.pickUp && managers.Collision.AABBCheck(this.testObject, this.player2)) {
-                console.log(this.testObject.prog);
-                config.Game.SCORE += this.testObject.prog;
+            managers.Collision.AABBCheck(this.assignment, this.player2);
+            if (managers.Input.pickUp && managers.Collision.AABBCheck(this.assignment, this.player2)) {
+                console.log(this.assignment.prog);
+                config.Game.SCORE += this.assignment.prog;
                 this.score.text = "Score: " + config.Game.SCORE;
-                this.testObject.HandIn();
+                this.assignment.HandIn();
             }
             this.player1.Update();
-            this.testObject.Update();
+            this.assignment.Update();
             this.tables.forEach(function (table) {
                 table.Update();
             });
@@ -66,7 +66,7 @@ var scenes;
         Stage1.prototype.Main = function () {
             var _this = this;
             //objects
-            this.addChild(this.testObject);
+            this.addChild(this.assignment);
             for (var _i = 0, _a = this.tables; _i < _a.length; _i++) {
                 var table = _a[_i];
                 this.addChild(table);
@@ -82,8 +82,8 @@ var scenes;
                 _this.timerLabel.text = ("Time left: " + _this.timer.getMinutes + "m " + _this.timer.getSeconds + "s");
                 if ( /*count <1 ||*/config.Game.SCENE != scenes.State.STAGE1) { // timer ends, do something here (e.g. next scene.)
                     //TODO: next scene (gameover)
-                    if (_this.testObject.writeSound != null)
-                        _this.testObject.writeSound.stop();
+                    if (_this.assignment.writeSound != null)
+                        _this.assignment.writeSound.stop();
                     managers.Input.playWrite = true;
                     window.clearInterval(interval);
                     console.log("clearInterval");
