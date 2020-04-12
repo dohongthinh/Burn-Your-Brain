@@ -14,7 +14,7 @@ module objects
         }
 
         // constructor
-        constructor(image:Object, x:number, y:number, isCentered:boolean)
+        constructor(image:Object = config.Game.ASSETS.getResult("table"), x:number, y:number, isCentered:boolean)
         {
             super(image, x, y, isCentered);
             this.Start();
