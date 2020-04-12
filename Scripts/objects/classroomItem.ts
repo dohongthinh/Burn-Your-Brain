@@ -1,7 +1,5 @@
 module objects{
     export class classroomItem extends objects.GameObject{
-        private _normal:createjs.Bitmap;
-        private _pickedUp:createjs.Bitmap;
         private _progLabel:createjs.Text;
         private _dx:number = 0;
         private _dy:number = 0;
@@ -10,6 +8,8 @@ module objects{
         private _state:ObjectState;
         private _writeSound: createjs.AbstractSoundInstance;
         private _submitSound: createjs.AbstractSoundInstance;
+        private _normal = new createjs.Bitmap(config.Game.ASSETS.getResult("bookOpen"));
+        private _pickedUp = new createjs.Bitmap(config.Game.ASSETS.getResult("bookClosed"));
 
         public get writeSound(): createjs.AbstractSoundInstance{
             return this._writeSound;
@@ -137,15 +137,13 @@ module objects{
             managers.Input.pickUp = false;
         }
         //constructor
-        constructor(imagePath:string, x:number, y:number, isCentered:boolean = true, normal:createjs.Bitmap, pickedUp:createjs.Bitmap){
-            super(imagePath,x,y,isCentered);
+        constructor(image:Object = config.Game.ASSETS.getResult("bookClosed"), x:number, y:number, isCentered:boolean = true){
+            super(image,x,y,isCentered);
             this.x = x;
             this.y = y;
             this._state = ObjectState.NORMAL;
             this._progLabel = new createjs.Text("","","white");
             config.Game.STAGE.addChild(this._progLabel)
-            this._normal = normal;
-            this._pickedUp = pickedUp;
         }
         public Interact(): void
         {

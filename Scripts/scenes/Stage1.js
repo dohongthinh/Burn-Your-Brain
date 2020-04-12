@@ -25,24 +25,23 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Stage1.prototype.Start = function () {
-            this.test = new createjs.Bitmap("./Assets/Images/openNotebook.png");
-            this.test2 = new createjs.Bitmap("./Assets/Images/closedNotebook.png");
-            this.testObject = new objects.classroomItem("./Assets/Images/closedNotebook.png", 600, 480, true, this.test, this.test2);
-            this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 50, 240, true);
-            this.player2 = new objects.Character("./Assets/Images/Pro000.png", 100, 150, true);
+            this.testObject = new objects.classroomItem(config.Game.ASSETS.getResult("bookOpen"), 600, 480, true);
+            this.player1 = new objects.Character(config.Game.ASSETS.getResult("player"), 50, 240, true);
+            this.player2 = new objects.Character(config.Game.ASSETS.getResult("prof"), 100, 150, true);
             this.score = new objects.Label("Score: " + config.Game.SCORE, "20px", "Arial", "#000000", 15, 30, false);
-            this.table1 = new objects.classroomObstacle("./Assets/Images/small_square_table.png", 200, 170, true);
-            this.table2 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 200, 300, true);
-            this.table3 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 200, 430, true);
-            this.table4 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 300, 115, true);
-            this.table5 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 300, 235, true);
-            this.table6 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 300, 365, true);
-            this.table7 = new objects.classroomObstacle("./Assets/Images/small_square_table.png", 400, 170, true);
-            this.table8 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 400, 300, true);
-            this.table9 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 400, 430, true);
-            this.table10 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 500, 115, true);
-            this.table11 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 500, 235, true);
-            this.table12 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 500, 365, true);
+            this.tables = new Array();
+            this.tables[0] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 200, 170, true);
+            this.tables[1] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 200, 300, true);
+            this.tables[2] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 200, 430, true);
+            this.tables[3] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 300, 115, true);
+            this.tables[4] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 300, 235, true);
+            this.tables[5] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 300, 365, true);
+            this.tables[6] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 400, 170, true);
+            this.tables[7] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 400, 300, true);
+            this.tables[8] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 400, 430, true);
+            this.tables[9] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 500, 115, true);
+            this.tables[10] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 500, 235, true);
+            this.tables[11] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 500, 365, true);
             //start timer
             this.timer = new objects.timer(46); //time in seconds
             this.timerLabel = new objects.Label("Time left: ", "20px", "Arial", "#000000", 15, 10, false);
@@ -59,36 +58,19 @@ var scenes;
             }
             this.player1.Update();
             this.testObject.Update();
-            this.table1.Update();
-            this.table2.Update();
-            this.table3.Update();
-            this.table4.Update();
-            this.table5.Update();
-            this.table6.Update();
-            this.table7.Update();
-            this.table8.Update();
-            this.table9.Update();
-            this.table10.Update();
-            this.table11.Update();
-            this.table12.Update();
+            this.tables.forEach(function (table) {
+                table.Update();
+            });
             //this.timer.Update();
         };
         Stage1.prototype.Main = function () {
             var _this = this;
             //objects
             this.addChild(this.testObject);
-            this.addChild(this.table1);
-            this.addChild(this.table2);
-            this.addChild(this.table3);
-            this.addChild(this.table4);
-            this.addChild(this.table5);
-            this.addChild(this.table6);
-            this.addChild(this.table7);
-            this.addChild(this.table8);
-            this.addChild(this.table9);
-            this.addChild(this.table10);
-            this.addChild(this.table11);
-            this.addChild(this.table12);
+            for (var _i = 0, _a = this.tables; _i < _a.length; _i++) {
+                var table = _a[_i];
+                this.addChild(table);
+            }
             //player
             this.addChild(this.player1);
             this.addChild(this.player2);

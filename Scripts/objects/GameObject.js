@@ -17,12 +17,12 @@ var objects;
     var GameObject = /** @class */ (function (_super) {
         __extends(GameObject, _super);
         // CONSTRUCTOR
-        function GameObject(imageString, x, y, centered) {
-            if (imageString === void 0) { imageString = "./Assets/images/placeholder.png"; }
+        function GameObject(image, x, y, centered) {
+            if (image === void 0) { image = config.Game.ASSETS.getResult("start"); }
             if (x === void 0) { x = 0; }
             if (y === void 0) { y = 0; }
             if (centered === void 0) { centered = false; }
-            var _this = _super.call(this, imageString) || this;
+            var _this = _super.call(this, image) || this;
             // initialization
             _this._width = 0;
             _this._height = 0;
@@ -32,14 +32,9 @@ var objects;
             _this._dir = 0;
             _this._position = new objects.Vector2(0, 0, _this);
             _this._isColliding = false;
-            _this.image.addEventListener("load", function () {
-                _this.width = _this.getBounds().width;
-                _this.height = _this.getBounds().height;
-                if (centered) {
-                    _this.regX = _this.halfWidth;
-                    _this.regY = _this.halfHeight;
-                }
-            });
+            _this.width = _this.getBounds().width;
+            _this.height = _this.getBounds().height;
+            _this.isCentered = centered;
             _this.position = new objects.Vector2(x, y, _this);
             return _this;
         }
@@ -102,6 +97,19 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(GameObject.prototype, "isCentered", {
+            get: function () {
+                return this._isCentered;
+            },
+            set: function (newState) {
+                this._isCentered = newState;
+                if (newState) {
+                    this._centerGameObject();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(GameObject.prototype, "angle", {
             get: function () {
                 return this._angle;
@@ -132,6 +140,10 @@ var objects;
         };
         GameObject.prototype._computeHalfHeight = function () {
             return this.height * 0.5;
+        };
+        GameObject.prototype._centerGameObject = function () {
+            this.regX = this.halfWidth;
+            this.regY = this.halfHeight;
         };
         return GameObject;
     }(createjs.Bitmap));

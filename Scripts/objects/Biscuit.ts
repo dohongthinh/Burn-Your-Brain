@@ -106,8 +106,8 @@ module objects{
             managers.Input.pickUp = false;
         }
         //constructor
-        constructor(imagePath:string, x:number, y:number, isCentered:boolean = true){
-            super(imagePath,x,y,isCentered);
+        constructor(image:Object, x:number, y:number, isCentered:boolean = true){
+            super(image,x,y,isCentered);
             this.x = x;
             this.y = y;
             this._state = ObjectState.NORMAL;

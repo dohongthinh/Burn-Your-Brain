@@ -27,15 +27,15 @@ var scenes;
         // PUBLIC METHODS
         How.prototype.Start = function () {
             // buttons
-            this._nextButton = new objects.Button("./Assets/Images/nextButton.png", 320, 430, true);
-            this._howButton = new objects.classroomObstacle("./Assets/Images/HowToPlay.png", 320, 210, true);
+            this._nextButton = new objects.Button(config.Game.ASSETS.getResult("next"), 320, 430, true);
+            this._how = new objects.classroomObstacle(config.Game.ASSETS.getResult("instruction"), 320, 210, true);
             this.Main();
         };
         How.prototype.Update = function () {
         };
         How.prototype.Main = function () {
             this.addChild(this._nextButton);
-            this.addChild(this._howButton);
+            this.addChild(this._how);
             this._nextButton.on("click", function () {
                 config.Game.SCENE = scenes.State.STAGE1;
             });

@@ -17,8 +17,8 @@ var objects;
     var Dog = /** @class */ (function (_super) {
         __extends(Dog, _super);
         // constructor
-        function Dog(imagePath, x, y, isCentered) {
-            var _this = _super.call(this, imagePath, x, y, isCentered) || this;
+        function Dog(image, x, y, isCentered) {
+            var _this = _super.call(this, image, x, y, isCentered) || this;
             _this._dy = 1;
             _this._dx = 1;
             _this._speed = 3;

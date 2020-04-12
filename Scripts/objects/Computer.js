@@ -17,8 +17,8 @@ var objects;
     var Computer = /** @class */ (function (_super) {
         __extends(Computer, _super);
         // constructor
-        function Computer(imagePath, x, y, isCentered) {
-            var _this = _super.call(this, imagePath, x, y, isCentered) || this;
+        function Computer(image, x, y, isCentered) {
+            var _this = _super.call(this, image, x, y, isCentered) || this;
             _this._prog = 0;
             _this._complete = false;
             _this.Start();

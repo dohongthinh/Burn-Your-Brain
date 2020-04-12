@@ -9,6 +9,7 @@ module objects
         private _halfHeight:number;
         private _position:Vector2;
         private _isColliding:boolean;
+        private _isCentered:boolean;
         private _angle:number;
         private _dir:number;
         
@@ -66,6 +67,20 @@ module objects
         {
             this._isColliding = newState;
         }
+
+        get isCentered():boolean
+        {
+            return this._isCentered;
+        }
+
+        set isCentered(newState:boolean)
+        {
+            this._isCentered = newState;
+            if(newState)
+            {
+                this._centerGameObject();
+            }
+        }
         get angle():number
         {
             return this._angle;
@@ -90,10 +105,10 @@ module objects
         }
 
         // CONSTRUCTOR
-        constructor(imageString:string = "./Assets/images/placeholder.png", 
+        constructor(image:Object = config.Game.ASSETS.getResult("start"), 
         x:number = 0, y:number = 0, centered:boolean = false)
         {
-            super(imageString);
+            super(image);
 
             // initialization
             this._width = 0;
@@ -105,17 +120,11 @@ module objects
             this._position = new Vector2(0, 0, this);
             this._isColliding = false;
 
-            this.image.addEventListener("load", () => {
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
 
-                this.width = this.getBounds().width;
-                this.height = this.getBounds().height;
+            this.isCentered = centered;
 
-                if(centered)
-                {
-                    this.regX = this.halfWidth;
-                    this.regY = this.halfHeight;
-                }
-            });
 
             this.position = new Vector2(x, y, this);
 
@@ -131,6 +140,13 @@ module objects
         {
             return this.height * 0.5;
         }
+
+        private _centerGameObject():void
+        {
+            this.regX = this.halfWidth;
+            this.regY = this.halfHeight;
+        }
+
 
         protected abstract _checkBounds():void;
 

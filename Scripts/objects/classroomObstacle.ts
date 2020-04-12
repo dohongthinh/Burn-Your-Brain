@@ -14,9 +14,9 @@ module objects
         }
 
         // constructor
-        constructor(imagePath:string, x:number, y:number, isCentered:boolean)
+        constructor(image:Object, x:number, y:number, isCentered:boolean)
         {
-            super(imagePath, x, y, isCentered);
+            super(image, x, y, isCentered);
             this.Start();
 
         }

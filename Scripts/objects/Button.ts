@@ -4,10 +4,10 @@ module objects
     {
         
         // constructor
-        constructor(imagePath:string = "./Assets/images/placeholder.png"
+        constructor(image:Object = config.Game.ASSETS.getResult("start")
             , x:number = 0, y:number= 0, isCentered:boolean = false)
         {
-            super(imagePath, x, y, isCentered);
+            super(image, x, y, isCentered);
 
             this.on("mouseover", this.MouseOver);
             this.on("mouseout", this.MouseOut);

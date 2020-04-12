@@ -6,8 +6,6 @@ module scenes
         // PUBLIC PROPERTIES
         private player1:objects.Character;
         private testObject:objects.classroomItem;
-        private test:createjs.Bitmap;
-        private test2:createjs.Bitmap;
         private player2:objects.Character;
         private timer:objects.timer;
         private timerLabel: objects.Label;
@@ -35,21 +33,19 @@ module scenes
         // PUBLIC METHODS
         public Start(): void 
         {
-            this.test = new createjs.Bitmap("./Assets/Images/closedNotebook.png");
-            this.test2 = new createjs.Bitmap("./Assets/Images/openNotebook.png");
-            this.testObject = new objects.classroomItem("./Assets/Images/openNotebook.png", 470, 240, true, this.test, this.test2);
-            this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 50, 240, true);
-            this.player2 = new objects.Character("./Assets/Images/Pro000.png",100,150,true);
+            this.testObject = new objects.classroomItem(config.Game.ASSETS.getResult("bookOpen"), 470, 240, true);
+            this.player1 = new objects.Character(config.Game.ASSETS.getResult("player"), 50, 240, true);
+            this.player2 = new objects.Character(config.Game.ASSETS.getResult("prof"),100,150,true);
             this.score = new objects.Label("Score: " + config.Game.SCORE,"20px", "Arial", "#000000", 15,30,false);
-            this.dog1 = new objects.Dog("./Assets/Images/Dog-L.png",200,240,true);
-            this.dog2 = new objects.Dog("./Assets/Images/Dog-R.png",400,360,true);
-            this.table1 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png",300,200,true);
-            this.computer = new objects.Computer("./Assets/Images/comp.png",300,320,true);
-            this.biscuit = new objects.Biscuit("./Assets/Images/DogBiscuit.png",500,150,true);
-            this.table2 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png",300,440,true);
-            this.table3 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png",500,200,true);            
-            this.table4 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png",500,320,true);         
-            this.table5 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png",500,440,true);
+            this.dog1 = new objects.Dog(config.Game.ASSETS.getResult("dog"),200,240,true);
+            this.dog2 = new objects.Dog(config.Game.ASSETS.getResult("dog"),400,360,true);
+            this.table1 = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"),300,200,true);
+            this.computer = new objects.Computer(config.Game.ASSETS.getResult("computer"),300,320,true);
+            this.biscuit = new objects.Biscuit(config.Game.ASSETS.getResult("biscuit"),500,150,true);
+            this.table2 = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"),300,440,true);
+            this.table3 = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"),500,200,true);            
+            this.table4 = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"),500,320,true);         
+            this.table5 = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"),500,440,true);
             //start timer
             this.timer = new objects.timer(46); //time in seconds
             this.timerLabel = new objects.Label("Time left: ", "20px", "Arial", "#000000", 15 , 10, false);

@@ -44,8 +44,8 @@ module objects{
         public Reset(): void {
         }
         //constructor
-        constructor(imagePath:string, x:number, y:number, isCentered:boolean = true){
-            super(imagePath,x,y,isCentered);
+        constructor(image:Object = config.Game.ASSETS.getResult("player"), x:number, y:number, isCentered:boolean = true){
+            super(image,x,y,isCentered);
             this._isHoldingItem = false;
             this.Start();
         }

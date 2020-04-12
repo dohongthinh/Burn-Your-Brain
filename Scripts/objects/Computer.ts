@@ -12,9 +12,9 @@ module objects
             return this._prog;
         }
         // constructor
-        constructor(imagePath:string, x:number, y:number, isCentered:boolean)
+        constructor(image:Object, x:number, y:number, isCentered:boolean)
         {
-            super(imagePath, x, y, isCentered);
+            super(image, x, y, isCentered);
             this.Start();
             this._progLabel = new createjs.Text("Finish lab assignment for 1000 pts","","white");
             config.Game.STAGE.addChild(this._progLabel)

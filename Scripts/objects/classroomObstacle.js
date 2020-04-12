@@ -17,8 +17,8 @@ var objects;
     var classroomObstacle = /** @class */ (function (_super) {
         __extends(classroomObstacle, _super);
         // constructor
-        function classroomObstacle(imagePath, x, y, isCentered) {
-            var _this = _super.call(this, imagePath, x, y, isCentered) || this;
+        function classroomObstacle(image, x, y, isCentered) {
+            var _this = _super.call(this, image, x, y, isCentered) || this;
             _this.dy = 3;
             _this.Start();
             return _this;

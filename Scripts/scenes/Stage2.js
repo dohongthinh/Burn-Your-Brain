@@ -25,20 +25,19 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Stage2.prototype.Start = function () {
-            this.test = new createjs.Bitmap("./Assets/Images/openNotebook.png");
-            this.test2 = new createjs.Bitmap("./Assets/Images/closedNotebook.png");
-            this.testObject = new objects.classroomItem("./Assets/Images/openNotebook.png", 600, 500, true, this.test, this.test2);
-            this.player1 = new objects.Character("./Assets/Images/Char1/tile000.png", 50, 240, true);
-            this.player2 = new objects.Character("./Assets/Images/Pro000.png", 100, 150, true);
+            this.testObject = new objects.classroomItem(config.Game.ASSETS.getResult("bookOpen"), 600, 500, true);
+            this.player1 = new objects.Character(config.Game.ASSETS.getResult("player"), 50, 240, true);
+            this.player2 = new objects.Character(config.Game.ASSETS.getResult("prof"), 100, 150, true);
             this.score = new objects.Label("Score: " + config.Game.SCORE, "20px", "Arial", "#000000", 15, 30, false);
-            this.dog1 = new objects.Dog("./Assets/Images/Dog-L.png", 200, 40, true);
-            this.dog2 = new objects.Dog("./Assets/Images/Dog-L.png", 400, 500, true);
-            this.table1 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 300, 150, true);
-            this.table2 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 300, 280, true);
-            this.table3 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 300, 410, true);
-            this.table4 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 500, 150, true);
-            this.table5 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 500, 280, true);
-            this.table6 = new objects.classroomObstacle("./Assets/Images/Small_square_table.png", 500, 410, true);
+            this.dog1 = new objects.Dog(config.Game.ASSETS.getResult("dog"), 200, 40, true);
+            this.dog2 = new objects.Dog(config.Game.ASSETS.getResult("dog"), 400, 500, true);
+            this.tables = new Array();
+            this.tables[0] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 300, 150, true);
+            this.tables[1] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 300, 280, true);
+            this.tables[2] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 300, 410, true);
+            this.tables[3] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 500, 150, true);
+            this.tables[4] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 500, 280, true);
+            this.tables[5] = new objects.classroomObstacle(config.Game.ASSETS.getResult("table"), 500, 410, true);
             //start timer
             this.timer = new objects.timer(46); //time in seconds
             this.timerLabel = new objects.Label("Time left: ", "20px", "Arial", "#000000", 15, 10, false);
@@ -71,12 +70,9 @@ var scenes;
             this.dog2._RunVertical();
             this.dog1.Update();
             this.dog2.Update();
-            this.table1.Update();
-            this.table2.Update();
-            this.table3.Update();
-            this.table4.Update();
-            this.table5.Update();
-            this.table6.Update();
+            this.tables.forEach(function (table) {
+                table.Update();
+            });
         };
         Stage2.prototype.Main = function () {
             var _this = this;
@@ -84,12 +80,10 @@ var scenes;
             console.log("%cHand in assignment at the table (only if assignment progress is > 50%)", "color: black; font-size: 12px;");
             //objects
             this.addChild(this.testObject);
-            this.addChild(this.table1);
-            this.addChild(this.table2);
-            this.addChild(this.table3);
-            this.addChild(this.table4);
-            this.addChild(this.table5);
-            this.addChild(this.table6);
+            for (var _i = 0, _a = this.tables; _i < _a.length; _i++) {
+                var table = _a[_i];
+                this.addChild(table);
+            }
             //player
             this.addChild(this.player1);
             this.addChild(this.player2);

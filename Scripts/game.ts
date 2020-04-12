@@ -10,6 +10,19 @@ let Game = (function(){
     let assets: createjs.LoadQueue;
     let assetManifest = 
     [
+        {id: "start", src:"./Assets/Images/startButton.png"},
+        {id: "back", src:"./Assets/Images/backButton.png"},
+        {id: "next", src:"./Assets/Images/nextButton.png"},   
+        {id: "instruction", src:"./Assets/Images/HowToPlay.png"},   
+        {id: "bookOpen", src:"./Assets/Images/openNotebook.png"},
+        {id: "bookClosed", src:"./Assets/Images/closedNotebook.png"},
+        {id: "table", src:"./Assets/Images/small_square_table.png"},
+        {id: "player", src:"./Assets/Images/Char1/tile000.png"},
+        {id: "dog", src:"./Assets/Images/DogBiscuit.png"},
+        {id: "computer", src:"./Assets/Images/comp.png"},
+        {id: "biscuit", src:"./Assets/Images/Dog-L.png"},
+
+        {id: "prof", src:"./Assets/Images/Pro000.png"},
         {id: "barking", src:"./Assets/Sounds/Barking.wav"},
         {id: "writing", src:"./Assets/Sounds/Pencil Writing.wav"},
         {id: "submit", src:"./Assets/Sounds/Submit.mp3"}

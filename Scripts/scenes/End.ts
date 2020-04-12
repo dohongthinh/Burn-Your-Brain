@@ -33,7 +33,7 @@ module scenes
             this.scoreBoardLabel = new objects.Label("Highest Score: " + config.Game.SCOREBOARD, "40px", "Consolas", "#FFFFFF", 320, 100, true);
             this.endLabel = new objects.Label("You Score: " + config.Game.SCORE, "50px", "Consolas", "#000000", 320, 180, true);
             // buttons
-            this.backButton = new objects.Button('./Assets/images/backButton.png', 320, 430, true);
+            this.backButton = new objects.Button(config.Game.ASSETS.getResult("back"), 320, 430, true);
             this.Main();
         }        
         

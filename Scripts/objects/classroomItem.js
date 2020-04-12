@@ -17,20 +17,21 @@ var objects;
     var classroomItem = /** @class */ (function (_super) {
         __extends(classroomItem, _super);
         //constructor
-        function classroomItem(imagePath, x, y, isCentered, normal, pickedUp) {
+        function classroomItem(image, x, y, isCentered) {
+            if (image === void 0) { image = config.Game.ASSETS.getResult("bookClosed"); }
             if (isCentered === void 0) { isCentered = true; }
-            var _this = _super.call(this, imagePath, x, y, isCentered) || this;
+            var _this = _super.call(this, image, x, y, isCentered) || this;
             _this._dx = 0;
             _this._dy = 0;
             _this._speed = 2;
             _this._prog = 0;
+            _this._normal = new createjs.Bitmap(config.Game.ASSETS.getResult("bookOpen"));
+            _this._pickedUp = new createjs.Bitmap(config.Game.ASSETS.getResult("bookClosed"));
             _this.x = x;
             _this.y = y;
             _this._state = objects.ObjectState.NORMAL;
             _this._progLabel = new createjs.Text("", "", "white");
             config.Game.STAGE.addChild(_this._progLabel);
-            _this._normal = normal;
-            _this._pickedUp = pickedUp;
             return _this;
         }
         Object.defineProperty(classroomItem.prototype, "writeSound", {

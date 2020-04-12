@@ -17,9 +17,10 @@ var objects;
     var Character = /** @class */ (function (_super) {
         __extends(Character, _super);
         //constructor
-        function Character(imagePath, x, y, isCentered) {
+        function Character(image, x, y, isCentered) {
+            if (image === void 0) { image = config.Game.ASSETS.getResult("player"); }
             if (isCentered === void 0) { isCentered = true; }
-            var _this = _super.call(this, imagePath, x, y, isCentered) || this;
+            var _this = _super.call(this, image, x, y, isCentered) || this;
             _this._isHoldingItem = false;
             _this.Start();
             return _this;

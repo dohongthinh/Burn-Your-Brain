@@ -17,9 +17,9 @@ var objects;
     var Biscuit = /** @class */ (function (_super) {
         __extends(Biscuit, _super);
         //constructor
-        function Biscuit(imagePath, x, y, isCentered) {
+        function Biscuit(image, x, y, isCentered) {
             if (isCentered === void 0) { isCentered = true; }
-            var _this = _super.call(this, imagePath, x, y, isCentered) || this;
+            var _this = _super.call(this, image, x, y, isCentered) || this;
             _this._dx = 0;
             _this._dy = 0;
             _this._speed = 2;

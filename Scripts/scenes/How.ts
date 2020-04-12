@@ -4,7 +4,7 @@ module scenes
     {
         // PRIVATE INSTANCE MEMBERS
         private _nextButton: objects.Button;
-        private _howButton: objects.classroomObstacle;
+        private _how: objects.classroomObstacle;
 
         // PUBLIC PROPERTIES
 
@@ -22,8 +22,8 @@ module scenes
         public Start(): void 
         {
             // buttons
-            this._nextButton = new objects.Button("./Assets/Images/nextButton.png", 320, 430, true);
-            this._howButton = new objects.classroomObstacle("./Assets/Images/HowToPlay.png", 320, 210, true);
+            this._nextButton = new objects.Button(config.Game.ASSETS.getResult("next"), 320, 430, true);
+            this._how = new objects.classroomObstacle(config.Game.ASSETS.getResult("instruction"), 320, 210, true);
             this.Main();
         }        
         
@@ -36,7 +36,7 @@ module scenes
         {        
         
             this.addChild(this._nextButton);
-            this.addChild(this._howButton);
+            this.addChild(this._how);
             this._nextButton.on("click", ()=>{
                 config.Game.SCENE = scenes.State.STAGE1;
             });
