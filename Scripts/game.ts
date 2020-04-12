@@ -70,6 +70,10 @@ let Game = (function(){
                 console.log("switch to Start Scene");
                 currentScene = new scenes.Start(); 
                 break;
+            case scenes.State.HOW:
+                console.log("switch to Tutorial Scene");
+                currentScene = new scenes.How(); 
+                break;
             case scenes.State.STAGE1:
                 console.log("switch to Stage1 Scene");
                 currentScene = new scenes.Stage1();

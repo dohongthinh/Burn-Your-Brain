@@ -14,35 +14,34 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var Start = /** @class */ (function (_super) {
-        __extends(Start, _super);
+    var How = /** @class */ (function (_super) {
+        __extends(How, _super);
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
-        function Start() {
+        function How() {
             var _this = _super.call(this) || this;
             _this.Start();
             return _this;
         }
         // PRIVATE METHODS
         // PUBLIC METHODS
-        Start.prototype.Start = function () {
-            //instantiate a new Text object
-            this._welcomeLabel = new objects.Label("Burn Your Brain", "40px", "Consolas", "#ffffff", 320, 180, true);
+        How.prototype.Start = function () {
             // buttons
-            this._startButton = new objects.Button("./Assets/Images/startButton.png", 320, 430, true);
+            this._nextButton = new objects.Button("./Assets/Images/nextButton.png", 320, 430, true);
+            this._howButton = new objects.classroomObstacle("./Assets/Images/HowToPlay.png", 320, 210, true);
             this.Main();
         };
-        Start.prototype.Update = function () {
+        How.prototype.Update = function () {
         };
-        Start.prototype.Main = function () {
-            this.addChild(this._welcomeLabel);
-            this.addChild(this._startButton);
-            this._startButton.on("click", function () {
-                config.Game.SCENE = scenes.State.HOW;
+        How.prototype.Main = function () {
+            this.addChild(this._nextButton);
+            this.addChild(this._howButton);
+            this._nextButton.on("click", function () {
+                config.Game.SCENE = scenes.State.STAGE1;
             });
         };
-        return Start;
+        return How;
     }(objects.Scene));
-    scenes.Start = Start;
+    scenes.How = How;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=Start.js.map
+//# sourceMappingURL=How.js.map
