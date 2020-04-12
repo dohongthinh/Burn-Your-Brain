@@ -105,7 +105,7 @@ module objects
         }
 
         // CONSTRUCTOR
-        constructor(image:Object = config.Game.ASSETS.getResult("start"), 
+        constructor(image:Object = config.Game.ASSETS.getResult("table"), 
         x:number = 0, y:number = 0, centered:boolean = false)
         {
             super(image);
