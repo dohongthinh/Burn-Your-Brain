@@ -18,6 +18,7 @@ var objects;
         __extends(classroomObstacle, _super);
         // constructor
         function classroomObstacle(image, x, y, isCentered) {
+            if (image === void 0) { image = config.Game.ASSETS.getResult("table"); }
             var _this = _super.call(this, image, x, y, isCentered) || this;
             _this.dy = 3;
             _this.Start();
