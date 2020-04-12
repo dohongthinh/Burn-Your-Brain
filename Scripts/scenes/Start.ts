@@ -35,11 +35,7 @@ module scenes
         }
         
         public Main(): void 
-        {
-
-            console.log(`%cMovement: WASD, Pick Up/ Put Down: E, Do Assignment: F, Throw: Spacebar`, "color: blue; font-size: 18px;");
-            console.log(`%cHand in assignment to the professor using E`, "color: black; font-size: 12px;");
-        
+        {       
        
             this.addChild(this._welcomeLabel);
 
@@ -47,7 +43,7 @@ module scenes
             this.addChild(this._startButton);
 
             this._startButton.on("click", ()=>{
-                config.Game.SCENE = scenes.State.STAGE1;
+                config.Game.SCENE = scenes.State.HOW;
             });
 
         }

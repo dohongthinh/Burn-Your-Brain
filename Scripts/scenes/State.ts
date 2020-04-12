@@ -5,6 +5,7 @@ module scenes
         NO_SCENE = -1,
         START,
         END,
+        HOW,
         STAGE1,
         STAGE2,
         STAGE3,

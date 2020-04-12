@@ -1,5 +1,10 @@
+
 #canvas
 {
-    border: solid, black, 5px;
     background-image: url(../Assets/Images/classroom_background.png);
+}
+#mainContent
+{
+    width: 640px;
+    margin: 0 auto;
 }
