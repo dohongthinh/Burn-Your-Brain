@@ -18,7 +18,7 @@ var objects;
         __extends(GameObject, _super);
         // CONSTRUCTOR
         function GameObject(image, x, y, centered) {
-            if (image === void 0) { image = config.Game.ASSETS.getResult("table"); }
+            if (image === void 0) { image = config.Game.ASSETS.getResult("placeholder"); }
             if (x === void 0) { x = 0; }
             if (y === void 0) { y = 0; }
             if (centered === void 0) { centered = false; }

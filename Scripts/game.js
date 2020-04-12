@@ -15,6 +15,7 @@ var Game = (function () {
         { id: "bookOpen", src: "./Assets/Images/openNotebook.png" },
         { id: "bookClosed", src: "./Assets/Images/closedNotebook.png" },
         { id: "table", src: "./Assets/Images/small_square_table.png" },
+        { id: "placeholder", src: "./Assets/Images/small_square_table.png" },
         { id: "player", src: "./Assets/Images/Char1/tile000.png" },
         { id: "dog", src: "./Assets/Images/DogBiscuit.png" },
         { id: "computer", src: "./Assets/Images/comp.png" },
